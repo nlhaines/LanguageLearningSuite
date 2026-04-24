@@ -1,0 +1,219 @@
+{
+  "id": "j4b-scifi",
+  "title": "🚀 Sci-Fi & Alan Spacey",
+  "module": "j4b",
+  "l1": "vi",
+  "l2": "en",
+  "categories": {
+    "scifi":   "🚀 Sci-Fi",
+    "grammar": "⚙️ Past Continuous"
+  },
+  "vocab": [
+    { "id": "j4b-scifi-v01", "l2": "alien",           "l1": "người ngoài hành tinh", "def": "a creature from another planet",                    "a": ["alien", "aliens"],     "c": ["scifi"] },
+    { "id": "j4b-scifi-v02", "l2": "spaceship",       "l1": "tàu vũ trụ",            "def": "a vehicle that travels through space",              "a": ["spaceship"],           "c": ["scifi"] },
+    { "id": "j4b-scifi-v03", "l2": "robot",           "l1": "robot",                 "def": "a machine that can do things automatically",        "a": ["robot", "robots"],     "c": ["scifi"] },
+    { "id": "j4b-scifi-v04", "l2": "zombie",          "l1": "xác sống",              "def": "a dead person that comes back to life in stories",  "a": ["zombie", "zombies"],   "c": ["scifi"] },
+    { "id": "j4b-scifi-v05", "l2": "meteor shower",   "l1": "mưa sao băng",          "def": "many meteors falling through the sky",              "a": ["meteor shower"],       "c": ["scifi"] },
+    { "id": "j4b-scifi-v06", "l2": "special effects", "l1": "hiệu ứng đặc biệt",     "def": "technology used to create movie magic",             "a": ["special effects"],     "hint": "two words", "c": ["scifi"] },
+    { "id": "j4b-scifi-v07", "l2": "makeup artist",   "l1": "chuyên gia trang điểm", "def": "a person who puts makeup on actors for films",      "a": ["makeup artist"],       "hint": "two words", "c": ["scifi"] },
+    { "id": "j4b-scifi-v08", "l2": "weapons",         "l1": "vũ khí",                "def": "objects used to fight or attack",                   "a": ["weapons"],             "c": ["scifi"] },
+    { "id": "j4b-scifi-v09", "l2": "scene",           "l1": "cảnh quay",             "def": "one part of a movie or play",                       "a": ["scene"],               "c": ["scifi"] },
+    { "id": "j4b-scifi-v10", "l2": "survive",         "l1": "sống sót",              "def": "to stay alive through a dangerous situation",       "a": ["survive"],             "c": ["scifi"] },
+    { "id": "j4b-scifi-v11", "l2": "fuel",            "l1": "nhiên liệu",            "def": "something that gives power to an engine",           "a": ["fuel"],                "c": ["scifi"] },
+    { "id": "j4b-scifi-v12", "l2": "supplies",        "l1": "đồ tiếp tế",            "def": "food, water, and equipment needed to survive",      "a": ["supplies"],            "c": ["scifi"] }
+  ],
+  "blanks": [
+    {
+      "id": "j4b-scifi-b01",
+      "s": ["Alan Spacey was in his ", "___", " when the aliens attacked."],
+      "a": ["spaceship"],
+      "d": ["robot", "zombie", "scene", "weapon"],
+      "c": ["scifi"],
+      "l2": "Alan Spacey was in his spaceship when the aliens attacked."
+    },
+    {
+      "id": "j4b-scifi-b02",
+      "s": ["The film used amazing ", "___", " to make the alien planets look real."],
+      "a": ["special effects"],
+      "d": ["makeup artist", "spaceship", "weapons", "fuel"],
+      "c": ["scifi"],
+      "l2": "The film used amazing special effects to make the alien planets look real."
+    },
+    {
+      "id": "j4b-scifi-b03",
+      "s": ["The ", "___", " was putting makeup on Alan Spacey when he sneezed."],
+      "a": ["makeup artist"],
+      "d": ["robot", "alien", "zombie", "scientist"],
+      "c": ["scifi"],
+      "l2": "The makeup artist was putting makeup on Alan Spacey when he sneezed."
+    },
+    {
+      "id": "j4b-scifi-b04",
+      "s": ["They needed to find ", "___", " before the zombies arrived."],
+      "a": ["weapons", "supplies", "fuel"],
+      "d": ["makeup artist", "scene", "robot"],
+      "c": ["scifi"],
+      "l2": "They needed to find weapons / supplies / fuel before the zombies arrived."
+    },
+    {
+      "id": "j4b-scifi-b05",
+      "s": ["The director said the last ", "___", " of the film was the most exciting."],
+      "a": ["scene"],
+      "d": ["weapon", "zombie", "robot", "alien"],
+      "c": ["scifi"],
+      "l2": "The director said the last scene of the film was the most exciting."
+    }
+  ],
+  "order": [
+    {
+      "id": "j4b-scifi-o01",
+      "w": ["I", "was", "sleeping", "when", "the", "zombies", "attacked."],
+      "alts": [],
+      "d": ["slept", "attacking"],
+      "c": ["scifi", "grammar"],
+      "l2": "I was sleeping when the zombies attacked."
+    },
+    {
+      "id": "j4b-scifi-o02",
+      "w": ["She", "was", "watching", "TV", "when", "the", "aliens", "invaded."],
+      "alts": [],
+      "d": ["watched", "invading"],
+      "c": ["scifi", "grammar"],
+      "l2": "She was watching TV when the aliens invaded."
+    },
+    {
+      "id": "j4b-scifi-o03",
+      "w": ["He", "was", "fighting", "the", "aliens", "when", "a", "meteor shower", "destroyed", "his", "spaceship."],
+      "alts": [],
+      "d": ["fights", "destroying"],
+      "c": ["scifi", "grammar"],
+      "l2": "He was fighting the aliens when a meteor shower destroyed his spaceship."
+    },
+    {
+      "id": "j4b-scifi-o04",
+      "w": ["The", "makeup", "artist", "was", "doing", "my", "makeup", "when", "I", "sneezed."],
+      "alts": [],
+      "d": ["did", "sneezing"],
+      "c": ["scifi", "grammar"],
+      "l2": "The makeup artist was doing my makeup when I sneezed."
+    },
+    {
+      "id": "j4b-scifi-o05",
+      "w": ["She", "was", "reading", "a", "book", "when", "the", "robot", "appeared."],
+      "alts": [],
+      "d": ["read", "appearing"],
+      "c": ["scifi", "grammar"],
+      "l2": "She was reading a book when the robot appeared."
+    },
+    {
+      "id": "j4b-scifi-o06",
+      "w": ["He", "was", "looking", "for", "supplies", "when", "the", "zombies", "came."],
+      "alts": [],
+      "d": ["looked", "coming"],
+      "c": ["scifi", "grammar"],
+      "l2": "He was looking for supplies when the zombies came."
+    },
+    {
+      "id": "j4b-scifi-o07",
+      "w": ["We", "were", "hiding", "in", "the", "forest", "when", "the", "aliens", "landed."],
+      "alts": [],
+      "d": ["hid", "landing"],
+      "c": ["scifi", "grammar"],
+      "l2": "We were hiding in the forest when the aliens landed."
+    },
+    {
+      "id": "j4b-scifi-o08",
+      "w": ["A", "brave", "and", "determined", "person", "can", "survive", "a", "zombie", "apocalypse."],
+      "alts": [],
+      "d": ["bravely", "surviving"],
+      "c": ["scifi"],
+      "l2": "A brave and determined person can survive a zombie apocalypse."
+    }
+  ],
+  "freewrite": [
+    {
+      "id": "j4b-scifi-f01",
+      "subtype": "transform",
+      "prompt": "Use past continuous: What was Alan Spacey doing when the meteor shower destroyed his spaceship?",
+      "broken": "",
+      "a": [
+        "He was fighting the aliens when a meteor shower destroyed his spaceship.",
+        "He was flying the spaceship when a meteor shower destroyed it.",
+        "Alan Spacey was looking for fuel when the meteor shower destroyed his spaceship.",
+        "He was sleeping when the meteor shower destroyed his spaceship.",
+        "He was escaping the aliens when a meteor shower hit his spaceship."
+      ],
+      "alts": [],
+      "explanation": "Past continuous: He was + verb-ing + when + simple past for the interruption.",
+      "c": ["scifi", "grammar"]
+    },
+    {
+      "id": "j4b-scifi-f02",
+      "subtype": "transform",
+      "prompt": "Use past continuous: What were you doing when the zombie attack started?",
+      "broken": "",
+      "a": [
+        "I was sleeping when the zombie attack started.",
+        "I was eating dinner when the zombie attack started.",
+        "I was watching TV when the zombies attacked.",
+        "I was studying when the zombies attacked.",
+        "I was running home when the zombie attack started."
+      ],
+      "alts": [],
+      "explanation": "Past continuous: I was + verb-ing + when + simple past.",
+      "c": ["scifi", "grammar"]
+    },
+    {
+      "id": "j4b-scifi-f03",
+      "subtype": "transform",
+      "prompt": "Write two sentences about a famous inventor using the passive tense.",
+      "broken": "",
+      "a": [
+        "The airplane was invented by the Wright Brothers. They were brave and ambitious inventors.",
+        "The telephone was invented by Alexander Graham Bell. He was a determined and clever inventor.",
+        "The World Wide Web was invented by Tim Berners-Lee. It was developed in 1989."
+      ],
+      "alts": [],
+      "explanation": "Passive: object + was + past participle + by + agent. Use two sentences.",
+      "c": ["scifi", "grammar"]
+    }
+  ],
+  "repair": [
+    {
+      "id": "j4b-scifi-r01",
+      "broken": "He was fight the aliens when a meteor shower destroys his spaceship.",
+      "errors": [
+        {
+          "wrong": "was fight",
+          "right": ["was fighting"],
+          "explanation": "Past continuous: was + verb-ING (was fighting, not was fight)."
+        },
+        {
+          "wrong": "destroys",
+          "right": ["destroyed"],
+          "explanation": "Simple past for the completed interrupting event: destroyed."
+        }
+      ],
+      "a": ["He was fighting the aliens when a meteor shower destroyed his spaceship."],
+      "c": ["scifi", "grammar"]
+    },
+    {
+      "id": "j4b-scifi-r02",
+      "broken": "We was hiding in the forest when the aliens land.",
+      "errors": [
+        {
+          "wrong": "was hiding",
+          "right": ["were hiding"],
+          "explanation": "We (plural) takes 'were', not 'was': we were hiding."
+        },
+        {
+          "wrong": "land",
+          "right": ["landed"],
+          "explanation": "Simple past for the completed event: landed."
+        }
+      ],
+      "a": ["We were hiding in the forest when the aliens landed."],
+      "c": ["scifi", "grammar"]
+    }
+  ]
+}

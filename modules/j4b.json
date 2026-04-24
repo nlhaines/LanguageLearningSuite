@@ -1,0 +1,15 @@
+{
+  "id": "j4b",
+  "title": "J4B English",
+  "subtitle": "▸ END OF MODULE REVIEW ◂",
+  "description": "Vocabulary, grammar and writing practice for the J4B English course.",
+  "level": "Intermediate",
+  "l1": "vi",
+  "l2": "en",
+  "units": [
+    "modules/units/j4b/weather.json",
+    "modules/units/j4b/health.json",
+    "modules/units/j4b/scifi.json",
+    "modules/units/j4b/grammar.json"
+  ]
+}

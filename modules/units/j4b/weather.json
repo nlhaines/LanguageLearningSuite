@@ -1,0 +1,251 @@
+{
+  "id": "j4b-weather",
+  "title": "🌪 Weather & Disasters",
+  "module": "j4b",
+  "l1": "vi",
+  "l2": "en",
+  "categories": {
+    "weather": "🌪 Weather",
+    "scifi":   "🚀 Sci-Fi"
+  },
+  "vocab": [
+    { "id": "j4b-weather-v01", "l2": "flood",        "l1": "lũ lụt",        "def": "when too much water covers the land",            "a": ["flood"],        "c": ["weather"] },
+    { "id": "j4b-weather-v02", "l2": "drought",      "l1": "hạn hán",       "def": "a long period with no rain",                     "a": ["drought"],      "c": ["weather"] },
+    { "id": "j4b-weather-v03", "l2": "lightning",    "l1": "sét",           "def": "a flash of electricity in the sky during a storm","a": ["lightning"],    "c": ["weather"] },
+    { "id": "j4b-weather-v04", "l2": "sunshine",     "l1": "nắng",          "def": "bright light and warmth from the sun",            "a": ["sunshine"],     "c": ["weather"] },
+    { "id": "j4b-weather-v05", "l2": "snowstorm",    "l1": "bão tuyết",     "def": "a storm with heavy snow and strong winds",        "a": ["snowstorm"],    "c": ["weather"] },
+    { "id": "j4b-weather-v06", "l2": "erupt",        "l1": "phun trào",     "def": "when a volcano throws out lava and ash",          "a": ["erupt", "erupts", "erupted"], "c": ["weather"] },
+    { "id": "j4b-weather-v07", "l2": "lava",         "l1": "nham thạch",    "def": "hot melted rock that flows from a volcano",       "a": ["lava"],         "c": ["weather"] },
+    { "id": "j4b-weather-v08", "l2": "volcano",      "l1": "núi lửa",       "def": "a mountain that can explode and release lava",     "a": ["volcano"],      "c": ["weather"] },
+    { "id": "j4b-weather-v09", "l2": "meteor shower","l1": "mưa sao băng",  "def": "when many meteors fall through the sky at night",  "a": ["meteor shower"],"c": ["weather", "scifi"] },
+    { "id": "j4b-weather-v10", "l2": "survive",      "l1": "sống sót",      "def": "to stay alive through a dangerous situation",     "a": ["survive"],      "c": ["weather", "scifi"] },
+    { "id": "j4b-weather-v11", "l2": "supplies",     "l1": "vật tư, lương thực", "def": "food, water, and other things you need to survive", "a": ["supplies"], "c": ["weather", "scifi"] },
+    { "id": "j4b-weather-v12", "l2": "fuel",         "l1": "nhiên liệu",    "def": "something that gives power, like petrol or gas",  "a": ["fuel"],         "c": ["weather", "scifi"] }
+  ],
+  "blanks": [
+    {
+      "id": "j4b-weather-b01",
+      "s": ["There was a big ", "___", " and all the streets were underwater."],
+      "a": ["flood"],
+      "d": ["drought", "sunshine", "snowstorm", "rainbow"],
+      "c": ["weather"],
+      "l2": "There was a big flood and all the streets were underwater."
+    },
+    {
+      "id": "j4b-weather-b02",
+      "s": ["It hasn't rained for months. The farmers are worried about the ", "___", "."],
+      "a": ["drought"],
+      "d": ["flood", "snowstorm", "lightning", "sunshine"],
+      "c": ["weather"],
+      "l2": "It hasn't rained for months. The farmers are worried about the drought."
+    },
+    {
+      "id": "j4b-weather-b03",
+      "s": ["The volcano began to ", "___", " and lava flowed down the mountain."],
+      "a": ["erupt"],
+      "d": ["flood", "snow", "disappear", "cool down"],
+      "c": ["weather"],
+      "l2": "The volcano began to erupt and lava flowed down the mountain."
+    },
+    {
+      "id": "j4b-weather-b04",
+      "s": ["The sky was dark and there was ", "___", " hitting the trees."],
+      "a": ["lightning"],
+      "d": ["sunshine", "drought", "lava", "snowfall"],
+      "c": ["weather"],
+      "l2": "The sky was dark and there was lightning hitting the trees."
+    },
+    {
+      "id": "j4b-weather-b05",
+      "s": ["Wear sunscreen! There is a lot of ", "___", " today."],
+      "a": ["sunshine"],
+      "d": ["lightning", "flood", "snowstorm", "lava"],
+      "c": ["weather"],
+      "l2": "Wear sunscreen! There is a lot of sunshine today."
+    },
+    {
+      "id": "j4b-weather-b06",
+      "s": ["The astronauts had to find ", "___", " before their spaceship ran out of power."],
+      "a": ["fuel"],
+      "d": ["lava", "lightning", "flood", "drought"],
+      "c": ["scifi", "weather"],
+      "l2": "The astronauts had to find fuel before their spaceship ran out of power."
+    },
+    {
+      "id": "j4b-weather-b07",
+      "s": ["They gathered food, water, and other ", "___", " before the storm arrived."],
+      "a": ["supplies"],
+      "d": ["lightning", "drought", "sunshine", "lava"],
+      "c": ["weather", "scifi"],
+      "l2": "They gathered food, water, and other supplies before the storm arrived."
+    },
+    {
+      "id": "j4b-weather-b08",
+      "s": ["The hot ", "___", " destroyed everything in its path as it flowed down the mountain."],
+      "a": ["lava"],
+      "d": ["flood", "snow", "sunshine", "rainbow"],
+      "c": ["weather"],
+      "l2": "The hot lava destroyed everything in its path as it flowed down the mountain."
+    }
+  ],
+  "order": [
+    {
+      "id": "j4b-weather-o01",
+      "w": ["The", "volcano", "erupted", "and", "lava", "flowed", "down", "the", "mountain."],
+      "alts": [],
+      "d": ["erupting", "flowing"],
+      "c": ["weather"],
+      "l2": "The volcano erupted and lava flowed down the mountain."
+    },
+    {
+      "id": "j4b-weather-o02",
+      "w": ["There", "was", "a", "drought", "so", "the", "farmers", "had", "no", "water."],
+      "alts": [],
+      "d": ["flood", "storm"],
+      "c": ["weather"],
+      "l2": "There was a drought so the farmers had no water."
+    },
+    {
+      "id": "j4b-weather-o03",
+      "w": ["The", "flood", "destroyed", "many", "houses", "in", "the", "city."],
+      "alts": [],
+      "d": ["drought", "sunshine"],
+      "c": ["weather"],
+      "l2": "The flood destroyed many houses in the city."
+    },
+    {
+      "id": "j4b-weather-o04",
+      "w": ["A", "meteor shower", "was", "visible", "from", "the", "mountain", "last", "night."],
+      "alts": [],
+      "d": ["lightning", "volcano"],
+      "c": ["weather", "scifi"],
+      "l2": "A meteor shower was visible from the mountain last night."
+    },
+    {
+      "id": "j4b-weather-o05",
+      "w": ["We", "were", "running", "when", "the", "volcano", "erupted."],
+      "alts": [],
+      "d": ["ran", "erupting"],
+      "c": ["weather"],
+      "l2": "We were running when the volcano erupted."
+    },
+    {
+      "id": "j4b-weather-o06",
+      "w": ["I", "was", "eating", "dinner", "when", "the", "flood", "started."],
+      "alts": [],
+      "d": ["ate", "starting"],
+      "c": ["weather"],
+      "l2": "I was eating dinner when the flood started."
+    },
+    {
+      "id": "j4b-weather-o07",
+      "w": ["They", "were", "playing", "football", "when", "the", "lightning", "struck."],
+      "alts": [],
+      "d": ["played", "striking"],
+      "c": ["weather"],
+      "l2": "They were playing football when the lightning struck."
+    },
+    {
+      "id": "j4b-weather-o08",
+      "w": ["I", "was", "walking", "home", "when", "the", "meteor shower", "began."],
+      "alts": [],
+      "d": ["walked", "beginning"],
+      "c": ["weather", "scifi"],
+      "l2": "I was walking home when the meteor shower began."
+    }
+  ],
+  "freewrite": [
+    {
+      "id": "j4b-weather-f01",
+      "subtype": "transform",
+      "prompt": "Rewrite using passive voice: Scientists discovered a new volcano under the sea.",
+      "broken": "Scientists discovered a new volcano under the sea.",
+      "a": ["A new volcano was discovered under the sea by scientists.", "A new volcano under the sea was discovered by scientists."],
+      "alts": [],
+      "explanation": "Passive: object + was/were + past participle + by + subject.",
+      "c": ["weather"]
+    },
+    {
+      "id": "j4b-weather-f02",
+      "subtype": "transform",
+      "prompt": "Rewrite using passive voice: The flood destroyed the bridge.",
+      "broken": "The flood destroyed the bridge.",
+      "a": ["The bridge was destroyed by the flood."],
+      "alts": [],
+      "explanation": "Passive: The bridge (object) + was destroyed (past passive) + by the flood (agent).",
+      "c": ["weather"]
+    },
+    {
+      "id": "j4b-weather-f03",
+      "subtype": "transform",
+      "prompt": "Use past continuous: What were you doing when the volcano erupted?",
+      "broken": "",
+      "a": [
+        "I was sleeping when the volcano erupted.",
+        "I was eating when the volcano erupted.",
+        "I was running when the volcano erupted.",
+        "I was watching TV when the volcano erupted.",
+        "I was cooking when the volcano erupted."
+      ],
+      "alts": [],
+      "explanation": "Past continuous: was/were + verb-ing. Use 'when' to introduce the interrupting event.",
+      "c": ["weather"]
+    }
+  ],
+  "repair": [
+    {
+      "id": "j4b-weather-r01",
+      "broken": "Yesterday the volcano is erupting and lava destroys the village.",
+      "errors": [
+        {
+          "wrong": "is erupting",
+          "right": ["was erupting"],
+          "explanation": "Past continuous for an action in progress at a past moment: was erupting."
+        },
+        {
+          "wrong": "destroys",
+          "right": ["destroyed"],
+          "explanation": "Simple past for a completed action: destroyed."
+        }
+      ],
+      "a": ["Yesterday the volcano was erupting and lava destroyed the village."],
+      "c": ["weather"]
+    },
+    {
+      "id": "j4b-weather-r02",
+      "broken": "The farmers doesn't have water because there was no rain since six months.",
+      "errors": [
+        {
+          "wrong": "doesn't have",
+          "right": ["didn't have", "don't have"],
+          "explanation": "Past context needs didn't have; or present needs don't have."
+        },
+        {
+          "wrong": "since six months",
+          "right": ["for six months"],
+          "explanation": "Use 'for' with a period of time (six months), 'since' with a point in time."
+        }
+      ],
+      "a": ["The farmers didn't have water because there was no rain for six months."],
+      "c": ["weather"]
+    },
+    {
+      "id": "j4b-weather-r03",
+      "broken": "She were running to the car when the lightning striked.",
+      "errors": [
+        {
+          "wrong": "were running",
+          "right": ["was running"],
+          "explanation": "She (singular) takes 'was', not 'were'."
+        },
+        {
+          "wrong": "striked",
+          "right": ["struck"],
+          "explanation": "Strike is irregular: strike → struck (not striked)."
+        }
+      ],
+      "a": ["She was running to the car when the lightning struck."],
+      "c": ["weather"]
+    }
+  ]
+}

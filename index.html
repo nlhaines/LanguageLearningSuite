@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noah's Language Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;700;900&family=Space+Mono:wght@400;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── FEEDBACK FLASH (fixed overlay) ── -->
+<div id="feedback"></div>
+
+<!-- ════════════════════════════════════════════
+     WELCOME / MODULE SELECT SCREEN
+════════════════════════════════════════════ -->
+<div id="welcome" class="screen active">
+  <div class="page-wrap">
+
+    <div class="welcome-hero">
+      <div class="app-logo">NOAH'S <span>ARCADE</span></div>
+      <div class="app-tagline">▸ LANGUAGE LEARNING ◂</div>
+    </div>
+
+    <div class="save-row">
+      <button class="action-btn primary" id="btn-export">⬇ Export Progress</button>
+      <button class="action-btn" id="btn-import">⬆ Load Progress</button>
+      <input type="file" id="import-input" accept=".json" style="display:none">
+    </div>
+
+    <div class="section-label">▸ SELECT A COURSE</div>
+    <div class="module-grid" id="module-grid">
+      <!-- populated by engine.js -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     HUB SCREEN  (unit / game selector)
+════════════════════════════════════════════ -->
+<div id="hub" class="screen">
+  <div class="page-wrap">
+
+    <div class="hub-header">
+      <div class="hub-back" id="hub-back-btn">← COURSES</div>
+      <div class="hub-logo" id="hub-logo-text">NOAH'S <span>ARCADE</span></div>
+      <div class="hub-sub"  id="hub-sub-text"></div>
+    </div>
+
+    <div class="hub-stats">
+      <div class="stat-chip"><strong id="stat-seen">0</strong>SEEN</div>
+      <div class="stat-chip"><strong id="stat-correct">0</strong>CORRECT</div>
+      <div class="stat-chip"><strong id="stat-games">0</strong>BEST SCORES</div>
+    </div>
+
+    <div class="immersion-row">
+      <span class="immersion-label">Immersion Mode</span>
+      <label class="toggle">
+        <input type="checkbox" id="immersion-toggle">
+        <div class="toggle-track"></div>
+      </label>
+      <span class="immersion-label" style="color:var(--sub);font-size:.6rem">(hides translations)</span>
+    </div>
+
+    <div class="section-label">▸ UNITS</div>
+    <div class="unit-tabs" id="unit-tabs"></div>
+
+    <div class="section-label">▸ FILTER BY TOPIC</div>
+    <div class="cat-grid" id="cat-grid"></div>
+    <div class="cat-hint" id="cat-hint"></div>
+
+    <div class="section-label">▸ CHOOSE YOUR GAME</div>
+    <div class="cabinet-grid" id="cabinet-grid">
+      <!-- populated by engine.js -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     GAME SCREEN
+════════════════════════════════════════════ -->
+<div id="gscreen" class="screen">
+
+  <!-- Sticky header — always visible -->
+  <div class="game-header">
+    <button class="game-back-btn">← HUB</button>
+    <div class="game-header-title" id="play-mode-label"></div>
+    <div class="game-header-stats">
+      <div class="lives-display" id="lives-display">❤️❤️❤️</div>
+      <div class="score-display" id="score-display">0 XP</div>
+    </div>
+  </div>
+
+  <div class="game-wrap">
+
+    <!-- ── INTRO VIEW ── -->
+    <div id="introview">
+      <div style="height:24px"></div>
+      <div class="intro-title" id="intro-title">RAPID FIRE</div>
+      <div class="cabinet-name" id="intro-mode-color" style="margin-bottom:8px"></div>
+      <div class="intro-desc" id="intro-desc"></div>
+
+      <div class="config-row">
+        <div class="config-label">Questions</div>
+        <input type="range" id="cfg-qcount" min="5" max="20" value="10" step="5">
+        <div class="config-val" id="cfg-qcount-val">10</div>
+      </div>
+
+      <div class="config-row">
+        <div class="config-label">Difficulty</div>
+        <input type="range" id="cfg-diff" min="1" max="4" value="2" step="1">
+        <div class="config-val" id="cfg-diff-val">MEDIUM</div>
+      </div>
+
+      <button class="start-btn" onclick="startGame()">▶ START GAME</button>
+    </div>
+
+    <!-- ── PLAY VIEW ── -->
+    <div id="playview" style="display:none">
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+
+      <div class="streak-bar">
+        <div class="streak-label">STREAK</div>
+        <div class="streak-pips" id="streak-pips">
+          <div class="pip" id="p0"></div>
+          <div class="pip" id="p1"></div>
+          <div class="pip" id="p2"></div>
+          <div class="pip" id="p3"></div>
+          <div class="pip" id="p4"></div>
+          <div class="pip" id="p5"></div>
+        </div>
+      </div>
+
+      <!-- Timer (Rapid Fire only) -->
+      <div class="timer-wrap" id="timer-wrap" style="display:none">
+        <svg class="timer-svg" width="60" height="60" viewBox="0 0 60 60">
+          <circle class="timer-track" cx="30" cy="30" r="24"/>
+          <circle class="timer-arc" id="timer-arc" cx="30" cy="30" r="24"
+            stroke-dasharray="150.8" stroke-dashoffset="0"/>
+          <text class="timer-text" x="30" y="30" id="timer-text">10</text>
+        </svg>
+      </div>
+
+      <!-- Question card (vocab / type-it / repair prompt) -->
+      <div id="qcard">
+        <div class="q-mode-tag" id="q-mode-tag"></div>
+        <div class="q-text"     id="q-text"></div>
+        <div class="q-hint"     id="q-hint" style="display:none"></div>
+        <div class="q-l1"       id="q-l1"   style="display:none"></div>
+      </div>
+
+      <!-- Fill-in-blank sentence display -->
+      <div id="blankwrap" style="display:none">
+        <div class="blank-sentence" id="blank-sentence"></div>
+        <div class="blank-l1"       id="blank-l1" style="display:none"></div>
+      </div>
+
+      <!-- Multiple choice options (rapid / fill-blank) -->
+      <div class="options-grid" id="options-grid" style="display:none"></div>
+
+      <!-- Type It input -->
+      <div id="typeinput" style="display:none">
+        <input  class="type-field" id="type-field"
+                type="text" placeholder="Type your answer…"
+                autocomplete="off" autocorrect="off" spellcheck="false">
+        <button class="submit-btn" id="btn-submit-type">CHECK ↵</button>
+      </div>
+
+      <!-- Word Order -->
+      <div id="wordorderwrap" style="display:none">
+        <div class="drop-zone"  id="drop-zone"></div>
+        <div class="tile-pool"  id="tile-pool"></div>
+        <button class="check-btn" id="check-wo" style="display:none">CHECK ORDER</button>
+      </div>
+
+      <!-- Free Write / Repair -->
+      <div id="freewritewrap" style="display:none">
+        <!-- broken sentence shown for repair / transform -->
+        <div class="fw-broken" id="fw-broken" style="display:none"></div>
+        <textarea class="fw-field" id="fw-field"
+                  placeholder="Write your answer here…" rows="3"></textarea>
+        <button class="submit-btn" id="btn-submit-fw">CHECK ↵</button>
+        <!-- model answer box -->
+        <div class="fw-model" id="fw-model" style="display:none">
+          <div class="fw-model-label">MODEL ANSWER</div>
+          <div class="fw-model-answer" id="fw-model-answer"></div>
+        </div>
+        <!-- explanation -->
+        <div class="fw-explanation" id="fw-explanation" style="display:none"></div>
+        <!-- repair checklist -->
+        <div class="repair-checks" id="repair-checks" style="display:none"></div>
+      </div>
+
+      <!-- Match Up -->
+      <div id="matchwrap" style="display:none">
+        <div class="match-cols">
+          <div>
+            <div class="match-col-label">Words</div>
+            <div id="match-col-words"></div>
+          </div>
+          <div>
+            <div class="match-col-label">Definitions</div>
+            <div id="match-col-defs"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="next-btn" id="next-btn">NEXT →</button>
+
+    </div><!-- /playview -->
+
+    <!-- ── RESULTS VIEW ── -->
+    <div id="resview" style="display:none">
+      <div class="res-title" id="res-title">GAME OVER</div>
+      <div class="res-score" id="res-score">0</div>
+      <div class="res-sub"   id="res-sub"></div>
+
+      <div class="res-stats">
+        <div class="res-stat">
+          <strong id="res-correct">0</strong>Correct
+        </div>
+        <div class="res-stat">
+          <strong id="res-wrong">0</strong>Wrong
+        </div>
+        <div class="res-stat">
+          <strong id="res-pct">0%</strong>Accuracy
+        </div>
+      </div>
+
+      <div class="res-hi" id="res-hi"></div>
+
+      <div class="res-btns">
+        <button class="res-btn primary"   id="res-btn-again">▶ PLAY AGAIN</button>
+        <button class="res-btn secondary" id="res-btn-hub">← HUB</button>
+      </div>
+    </div>
+
+  </div><!-- /game-wrap -->
+</div><!-- /gscreen -->
+
+<script src="engine.js"></script>
+</body>
+</html>

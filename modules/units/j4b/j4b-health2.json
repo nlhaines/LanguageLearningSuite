@@ -1,0 +1,790 @@
+{
+  "id": "j4b-health",
+  "title": "💊 Health & Personality",
+  "module": "j4b",
+  "cefr": "B1",
+  "l1": "vi",
+  "l2": "en",
+  "tags": [],
+  "categories": {
+    "health": "💊 Health",
+    "personality": "🌟 Personality",
+    "jobs": "💼 Jobs"
+  },
+  "vocab": [
+    {
+      "id": "j4b-health-v01",
+      "l2": "insomnia",
+      "l1": "chứng mất ngủ",
+      "def": "unable to sleep at night",
+      "a": [
+        "insomnia"
+      ],
+      "hint": "in- + somnia (Latin: sleep)",
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-v02",
+      "l2": "stressed out",
+      "l1": "căng thẳng",
+      "def": "feeling very worried and under pressure",
+      "a": [
+        "stressed out",
+        "stressed"
+      ],
+      "hint": "two words",
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-v03",
+      "l2": "unfit",
+      "l1": "không khỏe mạnh",
+      "def": "not healthy because of lack of exercise",
+      "a": [
+        "unfit"
+      ],
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-v04",
+      "l2": "unhealthy",
+      "l1": "không lành mạnh",
+      "def": "bad for your body, like junk food or no exercise",
+      "a": [
+        "unhealthy"
+      ],
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-v05",
+      "l2": "energetic",
+      "l1": "tràn đầy năng lượng",
+      "def": "full of energy and physically active",
+      "a": [
+        "energetic"
+      ],
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-v06",
+      "l2": "getting enough sleep",
+      "l1": "ngủ đủ giấc",
+      "def": "sleeping the right amount for good health",
+      "a": [
+        "getting enough sleep"
+      ],
+      "hint": "three words",
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-v07",
+      "l2": "health problems",
+      "l1": "vấn đề sức khỏe",
+      "def": "medical issues that affect your body or mind",
+      "a": [
+        "health problems"
+      ],
+      "hint": "two words",
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-v08",
+      "l2": "brave",
+      "l1": "dũng cảm",
+      "def": "not afraid of dangerous or difficult situations",
+      "a": [
+        "brave"
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v09",
+      "l2": "determined",
+      "l1": "quyết tâm",
+      "def": "never gives up; keeps trying no matter what",
+      "a": [
+        "determined"
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v10",
+      "l2": "ambitious",
+      "l1": "tham vọng",
+      "def": "wanting to be very successful in life",
+      "a": [
+        "ambitious"
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v11",
+      "l2": "clever",
+      "l1": "thông minh",
+      "def": "quick to learn and understand things",
+      "a": [
+        "clever"
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v12",
+      "l2": "inspirational",
+      "l1": "truyền cảm hứng",
+      "def": "makes other people want to do great things",
+      "a": [
+        "inspirational"
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v13",
+      "l2": "outgoing",
+      "l1": "hướng ngoại",
+      "def": "friendly and enjoys being with other people",
+      "a": [
+        "outgoing"
+      ],
+      "c": [
+        "health",
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v14",
+      "l2": "shy",
+      "l1": "nhút nhát",
+      "def": "nervous or uncomfortable around other people",
+      "a": [
+        "shy"
+      ],
+      "c": [
+        "health",
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v15",
+      "l2": "impatient",
+      "l1": "thiếu kiên nhẫn",
+      "def": "gets annoyed or frustrated when things are slow",
+      "a": [
+        "impatient"
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v16",
+      "l2": "biography",
+      "l1": "tiểu sử",
+      "def": "the story of someone's life written by another person",
+      "a": [
+        "biography"
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-v17",
+      "l2": "politician",
+      "l1": "chính trị gia",
+      "def": "a person who works in government and makes laws",
+      "a": [
+        "politician"
+      ],
+      "c": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "j4b-health-v18",
+      "l2": "scientist",
+      "l1": "nhà khoa học",
+      "def": "a person who studies science and does experiments",
+      "a": [
+        "scientist"
+      ],
+      "c": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "j4b-health-v19",
+      "l2": "inventor",
+      "l1": "nhà phát minh",
+      "def": "a person who creates new things or ideas",
+      "a": [
+        "inventor"
+      ],
+      "c": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "j4b-health-v20",
+      "l2": "athlete",
+      "l1": "vận động viên",
+      "def": "a person who is good at sports and competes",
+      "a": [
+        "athlete"
+      ],
+      "c": [
+        "jobs"
+      ]
+    }
+  ],
+  "blanks": [
+    {
+      "id": "j4b-health-b01",
+      "s": [
+        "She can't sleep at night. The doctor said she has ",
+        "___",
+        "."
+      ],
+      "a": [
+        "insomnia"
+      ],
+      "d": [
+        "drought",
+        "flu",
+        "a cold",
+        "energy"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "She can't sleep at night. The doctor said she has insomnia."
+    },
+    {
+      "id": "j4b-health-b02",
+      "s": [
+        "He works 12 hours a day and feels completely ",
+        "___",
+        "."
+      ],
+      "a": [
+        "stressed out",
+        "stressed"
+      ],
+      "d": [
+        "energetic",
+        "outgoing",
+        "fit",
+        "brave"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "He works 12 hours a day and feels completely stressed out."
+    },
+    {
+      "id": "j4b-health-b03",
+      "s": [
+        "She never exercises. The doctor said she is ",
+        "___",
+        "."
+      ],
+      "a": [
+        "unfit"
+      ],
+      "d": [
+        "stressed out",
+        "outgoing",
+        "shy",
+        "clever"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "She never exercises. The doctor said she is unfit."
+    },
+    {
+      "id": "j4b-health-b04",
+      "s": [
+        "If you eat fast food every day, your diet will be very ",
+        "___",
+        "."
+      ],
+      "a": [
+        "unhealthy"
+      ],
+      "d": [
+        "energetic",
+        "outgoing",
+        "brave",
+        "determined"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "If you eat fast food every day, your diet will be very unhealthy."
+    },
+    {
+      "id": "j4b-health-b05",
+      "s": [
+        "He doesn't like speaking in front of groups. He is quite ",
+        "___",
+        "."
+      ],
+      "a": [
+        "shy"
+      ],
+      "d": [
+        "outgoing",
+        "energetic",
+        "brave",
+        "impatient"
+      ],
+      "c": [
+        "health",
+        "personality"
+      ],
+      "l2": "He doesn't like speaking in front of groups. He is quite shy."
+    },
+    {
+      "id": "j4b-health-b06",
+      "s": [
+        "She never gives up, no matter how hard it is. She is very ",
+        "___",
+        "."
+      ],
+      "a": [
+        "determined"
+      ],
+      "d": [
+        "shy",
+        "unfit",
+        "outgoing",
+        "impatient"
+      ],
+      "c": [
+        "personality"
+      ],
+      "l2": "She never gives up, no matter how hard it is. She is very determined."
+    },
+    {
+      "id": "j4b-health-b07",
+      "s": [
+        "He wants to be the CEO of a big company one day. He is very ",
+        "___",
+        "."
+      ],
+      "a": [
+        "ambitious"
+      ],
+      "d": [
+        "shy",
+        "unfit",
+        "stressed out",
+        "outgoing"
+      ],
+      "c": [
+        "personality"
+      ],
+      "l2": "He wants to be the CEO of a big company one day. He is very ambitious."
+    },
+    {
+      "id": "j4b-health-b08",
+      "s": [
+        "She ran into the burning building to save the child. She was very ",
+        "___",
+        "."
+      ],
+      "a": [
+        "brave"
+      ],
+      "d": [
+        "shy",
+        "unfit",
+        "stressed out",
+        "impatient"
+      ],
+      "c": [
+        "personality"
+      ],
+      "l2": "She ran into the burning building to save the child. She was very brave."
+    },
+    {
+      "id": "j4b-health-b09",
+      "s": [
+        "Marie Curie was a ",
+        "___",
+        " who discovered radium and polonium."
+      ],
+      "a": [
+        "scientist"
+      ],
+      "d": [
+        "politician",
+        "athlete",
+        "biography",
+        "inventor"
+      ],
+      "c": [
+        "jobs"
+      ],
+      "l2": "Marie Curie was a scientist who discovered radium and polonium."
+    },
+    {
+      "id": "j4b-health-b10",
+      "s": [
+        "The Wright Brothers were ",
+        "___",
+        "s who created the first airplane."
+      ],
+      "a": [
+        "inventor"
+      ],
+      "d": [
+        "politician",
+        "athlete",
+        "scientist",
+        "biography"
+      ],
+      "c": [
+        "jobs"
+      ],
+      "l2": "The Wright Brothers were inventors who created the first airplane."
+    }
+  ],
+  "order": [
+    {
+      "id": "j4b-health-o01",
+      "w": [
+        "If",
+        "you",
+        "study",
+        "too",
+        "much",
+        "and",
+        "don't",
+        "sleep,",
+        "you'll",
+        "be",
+        "stressed."
+      ],
+      "alts": [],
+      "d": [
+        "sleeping",
+        "studies"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "If you study too much and don't sleep, you'll be stressed."
+    },
+    {
+      "id": "j4b-health-o02",
+      "w": [
+        "The",
+        "doctor",
+        "said",
+        "I",
+        "have",
+        "to",
+        "stop",
+        "eating",
+        "fast",
+        "food."
+      ],
+      "alts": [],
+      "d": [
+        "eat",
+        "stopped"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "The doctor said I have to stop eating fast food."
+    },
+    {
+      "id": "j4b-health-o03",
+      "w": [
+        "She",
+        "feels",
+        "unfit",
+        "because",
+        "she",
+        "never",
+        "exercises."
+      ],
+      "alts": [],
+      "d": [
+        "exercised",
+        "exercising"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "She feels unfit because she never exercises."
+    },
+    {
+      "id": "j4b-health-o04",
+      "w": [
+        "He",
+        "has",
+        "insomnia",
+        "and",
+        "cannot",
+        "get",
+        "enough",
+        "sleep."
+      ],
+      "alts": [],
+      "d": [
+        "sleeps",
+        "sleeping"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "He has insomnia and cannot get enough sleep."
+    },
+    {
+      "id": "j4b-health-o05",
+      "w": [
+        "She",
+        "is",
+        "very",
+        "determined",
+        "and",
+        "never",
+        "gives",
+        "up."
+      ],
+      "alts": [],
+      "d": [
+        "give",
+        "giving"
+      ],
+      "c": [
+        "personality"
+      ],
+      "l2": "She is very determined and never gives up."
+    },
+    {
+      "id": "j4b-health-o06",
+      "w": [
+        "He",
+        "is",
+        "ambitious",
+        "and",
+        "wants",
+        "to",
+        "be",
+        "a",
+        "famous",
+        "scientist."
+      ],
+      "alts": [],
+      "d": [
+        "wanting",
+        "want"
+      ],
+      "c": [
+        "personality",
+        "jobs"
+      ],
+      "l2": "He is ambitious and wants to be a famous scientist."
+    },
+    {
+      "id": "j4b-health-o07",
+      "w": [
+        "Make",
+        "sure",
+        "you",
+        "drink",
+        "lots",
+        "of",
+        "water",
+        "every",
+        "day."
+      ],
+      "alts": [],
+      "d": [
+        "drank",
+        "drinking"
+      ],
+      "c": [
+        "health"
+      ],
+      "l2": "Make sure you drink lots of water every day."
+    },
+    {
+      "id": "j4b-health-o08",
+      "w": [
+        "She",
+        "jumped",
+        "into",
+        "the",
+        "river",
+        "to",
+        "save",
+        "the",
+        "child."
+      ],
+      "alts": [],
+      "d": [
+        "jump",
+        "saving"
+      ],
+      "c": [
+        "personality"
+      ],
+      "l2": "She jumped into the river to save the child."
+    }
+  ],
+  "repair": [
+    {
+      "id": "j4b-health-r01",
+      "broken": "She don't exercise and eat a lot of unhealthy food.",
+      "errors": [
+        {
+          "wrong": "don't",
+          "right": [
+            "doesn't"
+          ],
+          "explanation": "She (third person singular) takes doesn't, not don't."
+        }
+      ],
+      "a": [
+        "She doesn't exercise and eats a lot of unhealthy food."
+      ],
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-r02",
+      "broken": "He is very determine and want to become a famous scientist.",
+      "errors": [
+        {
+          "wrong": "determine",
+          "right": [
+            "determined"
+          ],
+          "explanation": "Determined is an adjective (past participle form). Not 'determine'."
+        },
+        {
+          "wrong": "want",
+          "right": [
+            "wants"
+          ],
+          "explanation": "He (third person singular) takes wants in present simple."
+        }
+      ],
+      "a": [
+        "He is very determined and wants to become a famous scientist."
+      ],
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-r03",
+      "broken": "The doctor say she has insomnia because she work too much.",
+      "errors": [
+        {
+          "wrong": "say",
+          "right": [
+            "said",
+            "says"
+          ],
+          "explanation": "Third person singular needs says (present) or said (past)."
+        },
+        {
+          "wrong": "work",
+          "right": [
+            "works",
+            "worked"
+          ],
+          "explanation": "Third person singular needs works (present) or worked (past)."
+        }
+      ],
+      "a": [
+        "The doctor said she has insomnia because she works too much."
+      ],
+      "c": [
+        "health"
+      ]
+    }
+  ],
+  "freewrite": [
+    {
+      "id": "j4b-health-f01",
+      "subtype": "transform",
+      "prompt": "Rewrite in the passive: Doctors discovered that exercise helps insomnia.",
+      "broken": "Doctors discovered that exercise helps insomnia.",
+      "a": [
+        "It was discovered by doctors that exercise helps insomnia.",
+        "It was discovered that exercise helps insomnia."
+      ],
+      "alts": [],
+      "explanation": "Passive with 'it': It was discovered (by agent) that + clause.",
+      "c": [
+        "health"
+      ]
+    },
+    {
+      "id": "j4b-health-f02",
+      "subtype": "transform",
+      "prompt": "Write a sentence using 'determined' to describe someone who keeps studying after failing a test.",
+      "a": [
+        "She was determined and studied again after failing the test.",
+        "He was determined to pass and studied harder after failing.",
+        "She failed the test but was determined to improve.",
+        "He is very determined and never gives up, even after failing.",
+        "Despite failing, she remained determined and kept studying."
+      ],
+      "alts": [],
+      "explanation": "Determined = never gives up. Use it as an adjective after 'was/is' or before a noun.",
+      "c": [
+        "personality"
+      ]
+    },
+    {
+      "id": "j4b-health-f03",
+      "subtype": "transform",
+      "prompt": "Write one sentence using 'brave' about a person saving someone in danger.",
+      "a": [
+        "She was brave and jumped into the river to save the child.",
+        "He was brave and ran into the burning building.",
+        "The brave firefighter saved three people from the fire.",
+        "She bravely jumped into the sea to save the swimmer.",
+        "It was brave of him to stand up to the bullies."
+      ],
+      "alts": [],
+      "explanation": "Brave = not afraid of danger. Use as adjective (was brave) or before a noun (a brave person).",
+      "c": [
+        "personality"
+      ]
+    }
+  ]
+}

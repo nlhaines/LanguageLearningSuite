@@ -1,0 +1,288 @@
+{
+  "id": "j4b-grammar",
+  "title": "📜 Grammar Focus",
+  "module": "j4b",
+  "l1": "vi",
+  "l2": "en",
+  "categories": {
+    "passive":  "📜 Passive Voice",
+    "grammar":  "⚙️ Past Continuous"
+  },
+  "vocab": [
+    { "id": "j4b-grammar-v01", "l2": "was invented by",   "l1": "được phát minh bởi",   "def": "passive past — used to say who created something",    "a": ["was invented by"],   "c": ["passive"] },
+    { "id": "j4b-grammar-v02", "l2": "was discovered by", "l1": "được phát hiện bởi",   "def": "passive past — used to say who found something first", "a": ["was discovered by"], "c": ["passive"] },
+    { "id": "j4b-grammar-v03", "l2": "was built by",      "l1": "được xây bởi",          "def": "passive past — used to say who constructed something", "a": ["was built by"],      "c": ["passive"] },
+    { "id": "j4b-grammar-v04", "l2": "was developed by",  "l1": "được phát triển bởi",  "def": "passive past — used to say who created or improved something", "a": ["was developed by"], "c": ["passive"] },
+    { "id": "j4b-grammar-v05", "l2": "was written by",    "l1": "được viết bởi",         "def": "passive past — used to say who wrote something",       "a": ["was written by"],    "c": ["passive"] },
+    { "id": "j4b-grammar-v06", "l2": "was designed by",   "l1": "được thiết kế bởi",    "def": "passive past — used to say who designed something",    "a": ["was designed by"],   "c": ["passive"] },
+    { "id": "j4b-grammar-v07", "l2": "was interrupted",   "l1": "bị gián đoạn",          "def": "an ongoing action that was stopped by another event",  "a": ["was interrupted"],   "c": ["grammar"] },
+    { "id": "j4b-grammar-v08", "l2": "was / were + -ing", "l1": "was/were + V-ing",      "def": "past continuous — action in progress at a past time",  "a": ["was", "were"],       "hint": "was (I/he/she) or were (you/we/they)", "c": ["grammar"] }
+  ],
+  "blanks": [
+    {
+      "id": "j4b-grammar-b01",
+      "s": ["The telephone ", "___", " Alexander Graham Bell."],
+      "a": ["was invented by"],
+      "d": ["was discovered by", "was built by", "was written by", "was designed by"],
+      "c": ["passive"],
+      "l2": "The telephone was invented by Alexander Graham Bell."
+    },
+    {
+      "id": "j4b-grammar-b02",
+      "s": ["Penicillin ", "___", " Alexander Fleming in 1928."],
+      "a": ["was discovered by"],
+      "d": ["was invented by", "was built by", "was written by", "was developed by"],
+      "c": ["passive"],
+      "l2": "Penicillin was discovered by Alexander Fleming in 1928."
+    },
+    {
+      "id": "j4b-grammar-b03",
+      "s": ["The Eiffel Tower ", "___", " Gustave Eiffel."],
+      "a": ["was designed by", "was built by"],
+      "d": ["was invented by", "was discovered by", "was written by"],
+      "c": ["passive"],
+      "l2": "The Eiffel Tower was designed by Gustave Eiffel."
+    },
+    {
+      "id": "j4b-grammar-b04",
+      "s": ["Hamlet ", "___", " William Shakespeare."],
+      "a": ["was written by"],
+      "d": ["was invented by", "was discovered by", "was built by", "was designed by"],
+      "c": ["passive"],
+      "l2": "Hamlet was written by William Shakespeare."
+    },
+    {
+      "id": "j4b-grammar-b05",
+      "s": ["The theory of relativity ", "___", " Albert Einstein."],
+      "a": ["was developed by"],
+      "d": ["was invented by", "was discovered by", "was built by", "was written by"],
+      "c": ["passive"],
+      "l2": "The theory of relativity was developed by Albert Einstein."
+    },
+    {
+      "id": "j4b-grammar-b06",
+      "s": ["I ", "___", " watching TV when the zombies attacked."],
+      "a": ["was"],
+      "d": ["were", "am", "did", "been"],
+      "c": ["grammar"],
+      "l2": "I was watching TV when the zombies attacked."
+    },
+    {
+      "id": "j4b-grammar-b07",
+      "s": ["They ", "___", " playing football when the lightning struck."],
+      "a": ["were"],
+      "d": ["was", "are", "did", "been"],
+      "c": ["grammar"],
+      "l2": "They were playing football when the lightning struck."
+    },
+    {
+      "id": "j4b-grammar-b08",
+      "s": ["She was ", "___", " a book when the robot appeared."],
+      "a": ["reading"],
+      "d": ["read", "reads", "readed", "to read"],
+      "c": ["grammar"],
+      "l2": "She was reading a book when the robot appeared."
+    }
+  ],
+  "order": [
+    {
+      "id": "j4b-grammar-o01",
+      "w": ["The", "World", "Wide", "Web", "was", "invented", "by", "Tim", "Berners-Lee."],
+      "alts": [],
+      "d": ["discovered", "built"],
+      "c": ["passive"],
+      "l2": "The World Wide Web was invented by Tim Berners-Lee."
+    },
+    {
+      "id": "j4b-grammar-o02",
+      "w": ["Penicillin", "was", "discovered", "by", "Alexander", "Fleming."],
+      "alts": [],
+      "d": ["invented", "built"],
+      "c": ["passive"],
+      "l2": "Penicillin was discovered by Alexander Fleming."
+    },
+    {
+      "id": "j4b-grammar-o03",
+      "w": ["The", "theory", "of", "relativity", "was", "developed", "by", "Albert", "Einstein."],
+      "alts": [],
+      "d": ["invented", "discovered"],
+      "c": ["passive"],
+      "l2": "The theory of relativity was developed by Albert Einstein."
+    },
+    {
+      "id": "j4b-grammar-o04",
+      "w": ["Romeo", "and", "Juliet", "was", "written", "by", "Shakespeare."],
+      "alts": [],
+      "d": ["invented", "discovered"],
+      "c": ["passive"],
+      "l2": "Romeo and Juliet was written by Shakespeare."
+    },
+    {
+      "id": "j4b-grammar-o05",
+      "w": ["I", "was", "sleeping", "when", "the", "zombies", "attacked."],
+      "alts": [],
+      "d": ["slept", "attacking"],
+      "c": ["grammar"],
+      "l2": "I was sleeping when the zombies attacked."
+    },
+    {
+      "id": "j4b-grammar-o06",
+      "w": ["She", "was", "watching", "TV", "when", "the", "aliens", "invaded."],
+      "alts": [],
+      "d": ["watched", "invading"],
+      "c": ["grammar"],
+      "l2": "She was watching TV when the aliens invaded."
+    },
+    {
+      "id": "j4b-grammar-o07",
+      "w": ["He", "was", "fighting", "the", "aliens", "when", "a", "meteor shower", "destroyed", "his", "spaceship."],
+      "alts": [],
+      "d": ["fights", "destroying"],
+      "c": ["grammar"],
+      "l2": "He was fighting the aliens when a meteor shower destroyed his spaceship."
+    },
+    {
+      "id": "j4b-grammar-o08",
+      "w": ["The", "makeup", "artist", "was", "doing", "my", "makeup", "when", "I", "sneezed."],
+      "alts": [],
+      "d": ["did", "sneezing"],
+      "c": ["grammar"],
+      "l2": "The makeup artist was doing my makeup when I sneezed."
+    }
+  ],
+  "freewrite": [
+    {
+      "id": "j4b-grammar-f01",
+      "subtype": "transform",
+      "prompt": "Rewrite in the passive: Tim Berners-Lee invented the World Wide Web.",
+      "broken": "Tim Berners-Lee invented the World Wide Web.",
+      "a": ["The World Wide Web was invented by Tim Berners-Lee."],
+      "alts": [],
+      "explanation": "Passive: object (The World Wide Web) + was + past participle (invented) + by + agent.",
+      "c": ["passive"]
+    },
+    {
+      "id": "j4b-grammar-f02",
+      "subtype": "transform",
+      "prompt": "Rewrite in the passive: Alexander Fleming discovered penicillin.",
+      "broken": "Alexander Fleming discovered penicillin.",
+      "a": ["Penicillin was discovered by Alexander Fleming."],
+      "alts": [],
+      "explanation": "Passive: Penicillin (object) + was discovered (past passive) + by Alexander Fleming.",
+      "c": ["passive"]
+    },
+    {
+      "id": "j4b-grammar-f03",
+      "subtype": "transform",
+      "prompt": "Rewrite in the passive: The Wright Brothers invented the airplane.",
+      "broken": "The Wright Brothers invented the airplane.",
+      "a": ["The airplane was invented by the Wright Brothers.", "The airplane was invented by The Wright Brothers."],
+      "alts": [],
+      "explanation": "Object first: The airplane + was invented + by the Wright Brothers.",
+      "c": ["passive"]
+    },
+    {
+      "id": "j4b-grammar-f04",
+      "subtype": "transform",
+      "prompt": "Rewrite in the passive: Gustave Eiffel designed the Eiffel Tower.",
+      "broken": "Gustave Eiffel designed the Eiffel Tower.",
+      "a": ["The Eiffel Tower was designed by Gustave Eiffel."],
+      "alts": [],
+      "explanation": "Passive: The Eiffel Tower + was designed + by Gustave Eiffel.",
+      "c": ["passive"]
+    },
+    {
+      "id": "j4b-grammar-f05",
+      "subtype": "transform",
+      "prompt": "Rewrite in the passive: Albert Einstein developed the theory of relativity.",
+      "broken": "Albert Einstein developed the theory of relativity.",
+      "a": ["The theory of relativity was developed by Albert Einstein."],
+      "alts": [],
+      "explanation": "Passive: The theory of relativity + was developed + by Albert Einstein.",
+      "c": ["passive"]
+    },
+    {
+      "id": "j4b-grammar-f06",
+      "subtype": "transform",
+      "prompt": "Use past continuous to say what you were doing when a zombie attacked. Start with 'I was...'",
+      "broken": "",
+      "a": [
+        "I was sleeping when a zombie attacked.",
+        "I was eating dinner when a zombie attacked.",
+        "I was watching TV when a zombie attacked.",
+        "I was studying when a zombie attacked.",
+        "I was running when a zombie attacked."
+      ],
+      "alts": [],
+      "explanation": "Past continuous: I was + verb-ing + when + simple past (the interrupting event).",
+      "c": ["grammar"]
+    }
+  ],
+  "repair": [
+    {
+      "id": "j4b-grammar-r01",
+      "broken": "The telephone was invent by Alexander Graham Bell.",
+      "errors": [
+        {
+          "wrong": "was invent",
+          "right": ["was invented"],
+          "explanation": "Passive requires the past participle: invented (not the base form invent)."
+        }
+      ],
+      "a": ["The telephone was invented by Alexander Graham Bell."],
+      "c": ["passive"]
+    },
+    {
+      "id": "j4b-grammar-r02",
+      "broken": "Radiation was discovered by Marie Curie. She were a very brave scientist.",
+      "errors": [
+        {
+          "wrong": "were",
+          "right": ["was"],
+          "explanation": "She (singular) takes 'was', not 'were'."
+        }
+      ],
+      "a": ["Radiation was discovered by Marie Curie. She was a very brave scientist."],
+      "c": ["passive", "grammar"]
+    },
+    {
+      "id": "j4b-grammar-r03",
+      "broken": "I were watching TV when the aliens invaded.",
+      "errors": [
+        {
+          "wrong": "were",
+          "right": ["was"],
+          "explanation": "I (first person singular) takes 'was' in past continuous, not 'were'."
+        }
+      ],
+      "a": ["I was watching TV when the aliens invaded."],
+      "c": ["grammar"]
+    },
+    {
+      "id": "j4b-grammar-r04",
+      "broken": "She was run when the volcano erupted.",
+      "errors": [
+        {
+          "wrong": "was run",
+          "right": ["was running"],
+          "explanation": "Past continuous needs was + verb-ING: was running (not was run)."
+        }
+      ],
+      "a": ["She was running when the volcano erupted."],
+      "c": ["grammar"]
+    },
+    {
+      "id": "j4b-grammar-r05",
+      "broken": "Romeo and Juliet were written by Shakespeare.",
+      "errors": [
+        {
+          "wrong": "were written",
+          "right": ["was written"],
+          "explanation": "Romeo and Juliet (as a single title/work) is singular: was written."
+        }
+      ],
+      "a": ["Romeo and Juliet was written by Shakespeare."],
+      "c": ["passive"]
+    }
+  ]
+}

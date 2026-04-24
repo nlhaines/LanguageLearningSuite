@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Builder — Language Arcade</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:       #f5f4f0;
+  --bg2:      #eceae4;
+  --bg3:      #e3e0d8;
+  --panel:    #ffffff;
+  --border:   #d4d0c8;
+  --border2:  #b8b4aa;
+  --text:     #1a1814;
+  --sub:      #6b6760;
+  --accent:   #d4380d;
+  --accent2:  #1d6fa4;
+  --green:    #2d7d46;
+  --yellow:   #b35c00;
+  --purple:   #6941c6;
+  --tag-bg:   #fff3cd;
+  --tag-text: #92570a;
+
+  --ff-display: 'IBM Plex Sans Condensed', sans-serif;
+  --ff-body:    'IBM Plex Sans', sans-serif;
+  --ff-mono:    'IBM Plex Mono', monospace;
+  --r: 4px;
+  --r2: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-body);
+  font-size: 14px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--text);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  height: 48px;
+  flex-shrink: 0;
+  border-bottom: 2px solid var(--accent);
+}
+.topbar-logo {
+  font-family: var(--ff-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #fff;
+}
+.topbar-logo span { color: var(--accent); }
+.topbar-divider { width: 1px; height: 24px; background: #444; }
+.topbar-title {
+  font-family: var(--ff-mono);
+  font-size: .72rem;
+  color: #aaa;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.topbar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+
+/* ── BUTTONS ── */
+.btn {
+  font-family: var(--ff-body);
+  font-size: .82rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--r);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all .12s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.btn-ghost { background: transparent; border-color: #555; color: #ccc; }
+.btn-ghost:hover { border-color: #aaa; color: #fff; }
+.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-primary:hover { background: #b82d0a; }
+.btn-secondary { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+.btn-secondary:hover { background: #185d8a; }
+.btn-green { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-green:hover { background: #256038; }
+.btn-outline {
+  background: transparent;
+  border-color: var(--border2);
+  color: var(--sub);
+}
+.btn-outline:hover { border-color: var(--text); color: var(--text); }
+.btn-sm { padding: 4px 10px; font-size: .75rem; }
+.btn-xs { padding: 2px 7px; font-size: .7rem; }
+.btn-danger { background: transparent; border-color: #e5b4b4; color: var(--accent); }
+.btn-danger:hover { background: #fff0ee; }
+.btn-icon { padding: 5px 8px; font-size: .85rem; }
+
+/* ── LAYOUT ── */
+.layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - 48px);
+}
+
+/* ── LEFT SIDEBAR ── */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.sidebar-section {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-section:last-child { border-bottom: none; }
+.sidebar-label {
+  font-family: var(--ff-mono);
+  font-size: .62rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--sub);
+  margin-bottom: 10px;
+}
+
+/* ── FORM ELEMENTS ── */
+.field { margin-bottom: 10px; }
+.field:last-child { margin-bottom: 0; }
+.field label {
+  display: block;
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--sub);
+  margin-bottom: 4px;
+}
+.field input, .field select, .field textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 6px 9px;
+  font-family: var(--ff-body);
+  font-size: .82rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .12s;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--accent2);
+  background: #fff;
+}
+.field textarea { resize: vertical; min-height: 60px; line-height: 1.5; }
+.field select { cursor: pointer; }
+
+.lang-row { display: flex; gap: 8px; }
+.lang-row .field { flex: 1; margin-bottom: 0; }
+
+.cefr-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 2px; }
+.cefr-pill {
+  font-family: var(--ff-mono);
+  font-size: .68rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--sub);
+  transition: all .12s;
+}
+.cefr-pill.on { background: var(--text); color: #fff; border-color: var(--text); }
+
+.stats-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+.stat-box {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 6px 8px;
+  text-align: center;
+}
+.stat-box .n {
+  font-family: var(--ff-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent2);
+  display: block;
+}
+.stat-box .lbl {
+  font-size: .62rem;
+  color: var(--sub);
+  letter-spacing: .05em;
+}
+
+/* ── MAIN PANEL ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  background: var(--panel);
+  flex-shrink: 0;
+  padding: 0 20px;
+}
+.tab {
+  font-family: var(--ff-body);
+  font-size: .82rem;
+  font-weight: 500;
+  padding: 12px 18px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--sub);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all .12s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.tab-badge {
+  font-family: var(--ff-mono);
+  font-size: .6rem;
+  background: var(--bg3);
+  color: var(--sub);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+.tab.active .tab-badge { background: rgba(212,56,13,.12); color: var(--accent); }
+
+.tab-content { display: none; padding: 20px; flex: 1; }
+.tab-content.active { display: block; }
+
+/* ── SECTION HEADER ── */
+.section-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-hdr h2 {
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.section-hdr p {
+  font-size: .75rem;
+  color: var(--sub);
+  margin-top: 1px;
+}
+
+/* ── VOCAB CARD ── */
+.vocab-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.vocab-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg2);
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid var(--border);
+}
+.vocab-card-header:hover { background: var(--bg3); }
+.vocab-card-num {
+  font-family: var(--ff-mono);
+  font-size: .65rem;
+  color: var(--sub);
+  width: 22px;
+  flex-shrink: 0;
+}
+.vocab-card-word {
+  font-weight: 600;
+  font-size: .9rem;
+  flex: 1;
+}
+.vocab-card-def {
+  font-size: .75rem;
+  color: var(--sub);
+  flex: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vocab-card-toggle {
+  font-size: .7rem;
+  color: var(--sub);
+  margin-left: auto;
+}
+.vocab-card-body {
+  padding: 14px;
+  display: none;
+}
+.vocab-card-body.open { display: block; }
+
+.vocab-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.vocab-fields .field { margin-bottom: 0; }
+.vocab-fields .field.full { grid-column: 1 / -1; }
+
+/* ── SENTENCE LIST ── */
+.sent-list { margin-top: 4px; }
+.sent-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.sent-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+.sent-row:last-child { margin-bottom: 0; }
+.sent-input {
+  flex: 1;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 6px 9px;
+  font-family: var(--ff-body);
+  font-size: .85rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .12s;
+}
+.sent-input:focus { border-color: var(--accent2); }
+.sent-options {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.sent-check {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: .72rem;
+  color: var(--sub);
+  cursor: pointer;
+}
+.sent-check input[type=checkbox] { cursor: pointer; accent-color: var(--accent2); }
+.sent-alt-input {
+  display: none;
+  width: 100%;
+  margin-top: 6px;
+}
+.sent-alt-input.show { display: block; }
+
+/* ── DISTRACTOR OVERRIDE ── */
+.distractor-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  align-items: center;
+}
+.distractor-tag {
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: .72rem;
+  font-family: var(--ff-mono);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.distractor-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--tag-text);
+  font-size: .8rem;
+  padding: 0;
+  line-height: 1;
+}
+.distractor-add-input {
+  background: #fff;
+  border: 1px dashed var(--border2);
+  border-radius: var(--r);
+  padding: 3px 8px;
+  font-size: .75rem;
+  font-family: var(--ff-mono);
+  color: var(--text);
+  outline: none;
+  width: 120px;
+}
+.distractor-add-input:focus { border-color: var(--yellow); border-style: solid; }
+
+/* ── GRAMMAR CARD ── */
+.grammar-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  margin-bottom: 12px;
+  overflow: visible;
+}
+.grammar-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--r2) var(--r2) 0 0;
+}
+.grammar-type-badge {
+  font-family: var(--ff-mono);
+  font-size: .62rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.badge-repair    { background: rgba(180,60,0,.12);  color: var(--accent); }
+.badge-transform { background: rgba(29,111,164,.12); color: var(--accent2); }
+.grammar-card-body { padding: 14px; }
+
+/* ── SENTENCE EDITOR (repair) ── */
+.correct-sent-wrap {
+  position: relative;
+  margin-bottom: 12px;
+}
+.correct-sent-label {
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--sub);
+  margin-bottom: 4px;
+}
+.correct-sent-display {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  font-size: .95rem;
+  line-height: 1.7;
+  min-height: 42px;
+  cursor: text;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.correct-sent-display .token {
+  display: inline;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 1px 0;
+  transition: background .1s;
+}
+.correct-sent-display .token:hover { background: rgba(29,111,164,.15); }
+.correct-sent-display .token.selected { background: rgba(29,111,164,.25); outline: 2px solid var(--accent2); border-radius: 3px; }
+.correct-sent-display .token.errored  { background: rgba(212,56,13,.15); text-decoration: underline wavy var(--accent); }
+
+/* ── ERROR POPOVER ── */
+.error-popover {
+  position: fixed;
+  background: var(--panel);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  box-shadow: 0 8px 32px rgba(0,0,0,.18);
+  padding: 8px;
+  z-index: 1000;
+  min-width: 280px;
+  max-width: 340px;
+  display: none;
+}
+.error-popover.show { display: block; }
+.error-popover-title {
+  font-family: var(--ff-mono);
+  font-size: .6rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--sub);
+  padding: 4px 6px 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 6px;
+}
+.error-option {
+  padding: 7px 10px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: background .1s;
+}
+.error-option:hover { background: var(--bg2); }
+.error-option-name {
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.error-option-example {
+  font-size: .7rem;
+  color: var(--sub);
+  font-family: var(--ff-mono);
+}
+.error-option-example s { color: var(--accent); }
+.error-option-example b { color: var(--green); }
+
+/* ── ERROR ROWS (after applying) ── */
+.errors-list { margin-top: 10px; }
+.error-row {
+  background: rgba(212,56,13,.05);
+  border: 1px solid rgba(212,56,13,.2);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.error-row-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.error-wrong {
+  font-family: var(--ff-mono);
+  font-size: .78rem;
+  background: rgba(212,56,13,.1);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-decoration: line-through;
+}
+.error-arrow { color: var(--sub); font-size: .8rem; }
+.error-rights { display: flex; gap: 5px; flex-wrap: wrap; }
+.error-right-tag {
+  font-family: var(--ff-mono);
+  font-size: .75rem;
+  background: rgba(45,125,70,.1);
+  color: var(--green);
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.error-right-tag button {
+  background: none; border: none; cursor: pointer;
+  color: var(--green); font-size: .75rem; padding: 0; line-height: 1;
+}
+.error-right-add {
+  background: #fff;
+  border: 1px dashed var(--border2);
+  border-radius: 3px;
+  padding: 2px 7px;
+  font-size: .72rem;
+  font-family: var(--ff-mono);
+  color: var(--text);
+  outline: none;
+  width: 100px;
+}
+.error-right-add:focus { border-color: var(--green); border-style: solid; }
+.error-explanation {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 5px 8px;
+  font-family: var(--ff-body);
+  font-size: .78rem;
+  color: var(--text);
+  outline: none;
+  resize: none;
+  min-height: 42px;
+  transition: border-color .12s;
+}
+.error-explanation:focus { border-color: var(--accent2); }
+.error-warning {
+  font-size: .7rem;
+  color: var(--yellow);
+  margin-top: 4px;
+  display: none;
+}
+.error-warning.show { display: block; }
+
+/* ── BROKEN PREVIEW ── */
+.broken-preview {
+  background: rgba(212,56,13,.06);
+  border: 1px solid rgba(212,56,13,.25);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  font-size: .9rem;
+  margin-top: 10px;
+  display: none;
+}
+.broken-preview.show { display: block; }
+.broken-preview-label {
+  font-family: var(--ff-mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+.broken-preview-text { font-size: .9rem; line-height: 1.6; }
+.broken-preview-text .err-word { color: var(--accent); text-decoration: underline wavy; }
+
+/* ── TRANSFORM CARD ── */
+.transform-fields { display: flex; flex-direction: column; gap: 10px; }
+.answers-list { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.answer-row { display: flex; gap: 6px; align-items: center; }
+.answer-input {
+  flex: 1;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 6px 9px;
+  font-family: var(--ff-body);
+  font-size: .82rem;
+  color: var(--text);
+  outline: none;
+}
+.answer-input:focus { border-color: var(--green); }
+
+/* ── RIGHT PANEL (JSON preview) ── */
+.json-panel {
+  width: 320px;
+  flex-shrink: 0;
+  background: #1a1814;
+  border-left: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width .2s;
+}
+.json-panel.hidden { width: 0; border: none; overflow: hidden; }
+.json-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+.json-panel-title {
+  font-family: var(--ff-mono);
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #888;
+}
+.json-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  font-family: var(--ff-mono);
+  font-size: .72rem;
+  color: #a8d8a8;
+  white-space: pre;
+  line-height: 1.6;
+}
+.json-output .jk { color: #79b8ff; }
+.json-output .js { color: #f0a868; }
+.json-output .jn { color: #b5cea8; }
+.json-output .jb { color: #c586c0; }
+
+/* ── EMPTY STATES ── */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--sub);
+  border: 2px dashed var(--border);
+  border-radius: var(--r2);
+  margin-bottom: 12px;
+}
+.empty-state .icon { font-size: 2rem; margin-bottom: 10px; }
+.empty-state p { font-size: .82rem; line-height: 1.6; }
+
+/* ── UTILITY ── */
+.flex { display: flex; }
+.gap-8 { gap: 8px; }
+.gap-6 { gap: 6px; }
+.ml-auto { margin-left: auto; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.text-sub { color: var(--sub); font-size: .78rem; }
+.text-mono { font-family: var(--ff-mono); }
+.divider { height: 1px; background: var(--border); margin: 14px 0; }
+.warn-text { color: var(--yellow); font-size: .72rem; }
+.ok-text   { color: var(--green);  font-size: .72rem; }
+
+/* ── SCROLLBARS ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+.json-output::-webkit-scrollbar-thumb { background: #444; }
+
+/* ── ACCEPTED SENTENCES PERMUTATIONS ── */
+.accepted-preview { margin-top: 10px; display: none; }
+.accepted-preview.show { display: block; }
+.accepted-preview-label {
+  font-family: var(--ff-mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+.accepted-sentence {
+  background: rgba(45,125,70,.07);
+  border: 1px solid rgba(45,125,70,.25);
+  border-radius: var(--r);
+  padding: 7px 12px;
+  font-size: .85rem;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.5;
+  font-family: var(--ff-body);
+}
+.accepted-sentence .changed { color: var(--green); font-weight: 600; }
+.accepted-overflow {
+  font-size: .72rem;
+  color: var(--yellow);
+  font-family: var(--ff-mono);
+  margin-top: 4px;
+}
+.accepted-warning {
+  font-size: .72rem;
+  color: var(--yellow);
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: rgba(179,92,0,.08);
+  border: 1px solid rgba(179,92,0,.3);
+  border-radius: var(--r);
+  display: none;
+}
+.accepted-warning.show { display: block; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: var(--r);
+  font-size: .8rem;
+  font-family: var(--ff-mono);
+  z-index: 2000;
+  animation: tin .25s ease, tout .3s ease 2.1s forwards;
+  pointer-events: none;
+}
+@keyframes tin  { from{opacity:0;transform:translateX(-50%) translateY(8px)} to{opacity:1;transform:translateX(-50%)} }
+@keyframes tout { to{opacity:0;transform:translateX(-50%) translateY(6px)} }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--panel);
+  border-radius: var(--r2);
+  padding: 24px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 16px 48px rgba(0,0,0,.25);
+}
+.modal h3 {
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.modal p { font-size: .82rem; color: var(--sub); margin-bottom: 16px; line-height: 1.5; }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <div class="topbar-logo">LANG<span>ARC</span></div>
+  <div class="topbar-divider"></div>
+  <div class="topbar-title">Unit Builder / Editor</div>
+  <div class="topbar-actions">
+    <button class="btn btn-ghost btn-sm" onclick="loadJSON()">⬆ Load JSON</button>
+    <button class="btn btn-ghost btn-sm" id="btn-toggle-json" onclick="toggleJSON()">{ } Preview</button>
+    <button class="btn btn-secondary btn-sm" onclick="validateAndExport()">⬇ Export JSON</button>
+    <button class="btn btn-primary btn-sm" onclick="newUnit()">+ New Unit</button>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- ── LEFT SIDEBAR ── -->
+  <div class="sidebar">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Unit Info</div>
+      <div class="field">
+        <label>Unit Title</label>
+        <input type="text" id="unit-title" placeholder="e.g. Weather & Disasters" oninput="updatePreview()">
+      </div>
+      <div class="field">
+        <label>Module ID</label>
+        <input type="text" id="unit-module" placeholder="e.g. j4b" oninput="updatePreview()">
+      </div>
+      <div class="field">
+        <label>Unit ID <span class="text-mono" style="font-size:.65rem;color:var(--sub)">(auto)</span></label>
+        <input type="text" id="unit-id" placeholder="e.g. j4b/weather" oninput="updatePreview()">
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Languages</div>
+      <div class="lang-row">
+        <div class="field">
+          <label>L1 (native)</label>
+          <select id="unit-l1" oninput="updatePreview()">
+            <option value="vi">Vietnamese</option>
+            <option value="en">English</option>
+            <option value="zh">Chinese</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <option value="de">German</option>
+            <option value="th">Thai</option>
+            <option value="id">Indonesian</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>L2 (target)</label>
+          <select id="unit-l2" oninput="updatePreview()">
+            <option value="en" selected>English</option>
+            <option value="vi">Vietnamese</option>
+            <option value="zh">Chinese</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <option value="de">German</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">CEFR Level</div>
+      <div class="cefr-pills" id="cefr-pills">
+        <div class="cefr-pill" onclick="setCEFR('A1')">A1</div>
+        <div class="cefr-pill" onclick="setCEFR('A2')">A2</div>
+        <div class="cefr-pill on" onclick="setCEFR('B1')">B1</div>
+        <div class="cefr-pill" onclick="setCEFR('B2')">B2</div>
+        <div class="cefr-pill" onclick="setCEFR('C1')">C1</div>
+        <div class="cefr-pill" onclick="setCEFR('C2')">C2</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Topic Tags</div>
+      <div class="field">
+        <input type="text" id="unit-tags" placeholder="weather, grammar, passive…" oninput="updatePreview()">
+      </div>
+      <div class="field">
+        <label>Categories (key: Label)</label>
+        <textarea id="unit-cats" rows="3" placeholder="weather: 🌪 Weather&#10;grammar: ⚙️ Grammar" oninput="updatePreview()"></textarea>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Item Count</div>
+      <div class="stats-row">
+        <div class="stat-box"><span class="n" id="count-vocab">0</span><span class="lbl">Vocab</span></div>
+        <div class="stat-box"><span class="n" id="count-blanks">0</span><span class="lbl">Blanks</span></div>
+        <div class="stat-box"><span class="n" id="count-order">0</span><span class="lbl">Order</span></div>
+      </div>
+      <div class="stats-row mt-8">
+        <div class="stat-box"><span class="n" id="count-repair">0</span><span class="lbl">Repair</span></div>
+        <div class="stat-box"><span class="n" id="count-fw">0</span><span class="lbl">Transform</span></div>
+      </div>
+    </div>
+
+  </div><!-- /sidebar -->
+
+  <!-- ── MAIN PANEL ── -->
+  <div class="main">
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('vocab')" id="tab-vocab">
+        📖 Vocabulary <span class="tab-badge" id="tbadge-vocab">0</span>
+      </button>
+      <button class="tab" onclick="switchTab('grammar')" id="tab-grammar">
+        ⚙️ Grammar <span class="tab-badge" id="tbadge-grammar">0</span>
+      </button>
+    </div>
+
+    <!-- ── VOCAB TAB ── -->
+    <div class="tab-content active" id="tc-vocab">
+      <div class="section-hdr">
+        <div>
+          <h2>Vocabulary</h2>
+          <p>Each word auto-generates Rapid Fire, Type It, Match Up, Fill the Blank and Word Order questions.</p>
+        </div>
+        <button class="btn btn-primary" onclick="addVocab()">+ Add Word</button>
+      </div>
+      <div id="vocab-list">
+        <div class="empty-state" id="vocab-empty">
+          <div class="icon">📖</div>
+          <p>No vocabulary yet.<br>Click <strong>+ Add Word</strong> to get started.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GRAMMAR TAB ── -->
+    <div class="tab-content" id="tc-grammar">
+      <div class="section-hdr">
+        <div>
+          <h2>Grammar Items</h2>
+          <p>Repair items and transformation tasks. These generate the Sentence Repair and Free Write game modes.</p>
+        </div>
+        <div class="flex gap-8">
+          <button class="btn btn-outline" onclick="addTransform()">+ Transform</button>
+          <button class="btn btn-primary"  onclick="addRepair()">+ Repair</button>
+        </div>
+      </div>
+      <div id="grammar-list">
+        <div class="empty-state" id="grammar-empty">
+          <div class="icon">⚙️</div>
+          <p>No grammar items yet.<br>Add a <strong>Repair</strong> (fix grammar errors) or <strong>Transform</strong> (rewrite tasks) item.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- ── JSON PREVIEW PANEL ── -->
+  <div class="json-panel hidden" id="json-panel">
+    <div class="json-panel-header">
+      <div class="json-panel-title">JSON Preview</div>
+      <button class="btn btn-ghost btn-xs" onclick="toggleJSON()">✕</button>
+    </div>
+    <div class="json-output" id="json-output"></div>
+  </div>
+
+</div><!-- /layout -->
+
+<!-- Error popover -->
+<div class="error-popover" id="error-popover">
+  <div class="error-popover-title">Select error type for: <span id="popover-token-label"></span></div>
+  <div id="popover-options"></div>
+</div>
+
+<!-- Load modal -->
+<div class="modal-overlay" id="load-modal">
+  <div class="modal">
+    <h3>Load Unit JSON</h3>
+    <p>Select an existing unit JSON file to edit. This will replace any unsaved work.</p>
+    <input type="file" id="load-input" accept=".json" style="display:none" onchange="handleLoad(this)">
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeModal('load-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="document.getElementById('load-input').click()">Choose File</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ══════════════════════════════════════════════
+//  ERROR LIBRARY
+// ══════════════════════════════════════════════
+
+const ERROR_LIBRARY = [
+  // ── VERB TENSE ──
+  {
+    id: 'past_cont_to_pres_simple',
+    name: 'Past continuous → Present simple',
+    applies: ['verb_past_cont'],
+    example: ['was running', 'run'],
+    transform: (tok) => {
+      // "was running" → "run" / "runs"
+      const m = tok.match(/^(was|were)\s+(\w+)ing$/i);
+      if (!m) return null;
+      const base = m[2].replace(/([^aeiou])$/, '$1'); // rough de-doubling
+      return { wrong: tok, right: [base, base + 's'], explanation: 'Past continuous (was/were + -ing) replaced with present simple. Use past continuous for an action in progress at a past moment.' };
+    }
+  },
+  {
+    id: 'past_cont_to_pres_cont',
+    name: 'Past continuous → Present continuous',
+    applies: ['verb_past_cont'],
+    example: ['was running', 'is running'],
+    transform: (tok) => {
+      const m = tok.match(/^(was|were)\s+(\w+ing)$/i);
+      if (!m) return null;
+      const aux = m[1].toLowerCase() === 'were' ? 'are' : 'is';
+      return { wrong: tok, right: ['is ' + m[2], 'are ' + m[2]], explanation: 'Wrong auxiliary: "' + m[1] + '" (past) replaced with present auxiliary. Past continuous needs was/were, not is/are.' };
+    }
+  },
+  {
+    id: 'past_cont_drop_aux',
+    name: 'Past continuous → Drop auxiliary',
+    applies: ['verb_past_cont'],
+    example: ['was running', 'running'],
+    transform: (tok) => {
+      const m = tok.match(/^(was|were)\s+(\w+ing)$/i);
+      if (!m) return null;
+      return { wrong: m[2], right: [tok], explanation: 'Missing auxiliary: "' + m[2] + '" needs "' + m[1] + '" before it. Past continuous = was/were + verb-ing.' };
+    }
+  },
+  {
+    id: 'past_cont_base_after_aux',
+    name: 'Past continuous → Base form after auxiliary',
+    applies: ['verb_past_cont'],
+    example: ['was running', 'was run'],
+    transform: (tok) => {
+      const m = tok.match(/^(was|were)\s+(\w+)ing$/i);
+      if (!m) return null;
+      const base = m[2].replace(/([^aeiou])$/, '$1');
+      return { wrong: m[1] + ' ' + base, right: [tok], explanation: 'Past continuous needs -ing form: "' + m[1] + ' ' + base + '" → "' + tok + '".' };
+    }
+  },
+  {
+    id: 'past_simple_to_pres_simple',
+    name: 'Past simple → Present simple',
+    applies: ['verb_past_simple'],
+    example: ['erupted', 'erupts / erupt'],
+    transform: (tok) => {
+      // Simple: strip -ed, add -s
+      const base = tok.replace(/ed$/, '').replace(/([^aeiou])(\1)$/, '$1');
+      return { wrong: base, right: [tok], explanation: '"' + base + '" is present tense. Use past simple "' + tok + '" for a completed past event.' };
+    }
+  },
+  {
+    id: 'passive_base_form',
+    name: 'Passive → base form (not past participle)',
+    applies: ['verb_passive'],
+    example: ['was invented', 'was invent'],
+    transform: (tok) => {
+      const m = tok.match(/^(was|were|is|are)\s+(\w+ed|\w+en)$/i);
+      if (!m) return null;
+      const base = m[2].replace(/ed$/, '').replace(/([^aeiou])(\1)$/, '$1').replace(/en$/, '');
+      return { wrong: m[1] + ' ' + base, right: [tok], explanation: 'Passive voice needs the past participle: "' + m[1] + ' ' + base + '" → "' + tok + '".' };
+    }
+  },
+  {
+    id: 'passive_wrong_aux',
+    name: 'Passive → Wrong auxiliary (is/are instead of was/were)',
+    applies: ['verb_passive'],
+    example: ['was invented', 'is invented'],
+    transform: (tok) => {
+      const m = tok.match(/^(was|were)\s+(\w+)$/i);
+      if (!m) return null;
+      const wrongAux = m[1].toLowerCase() === 'were' ? 'are' : 'is';
+      return { wrong: wrongAux + ' ' + m[2], right: [tok], explanation: 'Past passive needs "was/were", not "is/are": "' + wrongAux + ' ' + m[2] + '" → "' + tok + '".' };
+    }
+  },
+  // ── AGREEMENT ──
+  {
+    id: 'sv_agreement_3sg',
+    name: 'Subject-verb agreement (3rd person singular)',
+    applies: ['verb_present'],
+    example: ['doesn\'t', 'don\'t'],
+    transform: (tok) => {
+      const map = { "doesn't": "don't", "doesn't": "don't", 'does': 'do', 'has': 'have', 'is': 'are', 'was': 'were' };
+      const maps = { "don't": "doesn't", "don't": "doesn't", 'do': 'does', 'have': 'has', 'are': 'is', 'were': 'was' };
+      const tl = tok.toLowerCase();
+      if (map[tl]) return { wrong: map[tl], right: [tok], explanation: '"' + map[tl] + '" is plural/1st person. Third person singular (he/she/it) needs "' + tok + '".' };
+      if (maps[tl]) return { wrong: tok, right: [maps[tl] + ' (3sg)', tok + ' (plural)'], explanation: 'Check subject: third person singular (he/she/it) needs "' + maps[tl] + '", plural/1st needs "' + tok + '".' };
+      return { wrong: tok, right: [tok + 's'], explanation: 'Third person singular verbs need -s: "' + tok + '" → "' + tok + 's".' };
+    }
+  },
+  // ── NEGATION ──
+  {
+    id: 'double_negative',
+    name: 'Double negative',
+    applies: ['adverb_negative', 'verb_present'],
+    example: ["doesn't never", "doesn't ever / never"],
+    transform: (tok) => {
+      return { wrong: tok + ' never', right: [tok + ' ever', 'never'], explanation: 'Double negative: "' + tok + ' never" uses two negatives. Use "' + tok + ' ever" or just "never".' };
+    }
+  },
+  // ── PREPOSITIONS ──
+  {
+    id: 'since_for',
+    name: 'Since / For confusion',
+    applies: ['preposition'],
+    example: ['for six months', 'since six months'],
+    transform: (tok) => {
+      if (tok.toLowerCase() === 'since') return { wrong: 'since', right: ['for'], explanation: '"Since" is used with a point in time (since 2020, since Monday). Use "for" with a period of time (for six months, for two years).' };
+      if (tok.toLowerCase() === 'for')   return { wrong: 'for',   right: ['since'], explanation: '"For" is used with a period of time. Use "since" with a point in time (since 2020, since last week).' };
+      return null;
+    }
+  },
+  // ── ARTICLES ──
+  {
+    id: 'article_a_an',
+    name: 'Article: a / an confusion',
+    applies: ['article'],
+    example: ['a engineer', 'an engineer'],
+    transform: (tok) => {
+      if (tok.toLowerCase() === 'a')  return { wrong: 'a',  right: ['an'], explanation: 'Use "an" before words starting with a vowel sound (an engineer, an hour, an apple).' };
+      if (tok.toLowerCase() === 'an') return { wrong: 'an', right: ['a'],  explanation: 'Use "a" before words starting with a consonant sound (a university, a one-way street).' };
+      return null;
+    }
+  },
+  {
+    id: 'missing_article',
+    name: 'Missing article (a/an/the)',
+    applies: ['noun'],
+    example: ['She is teacher', 'She is a teacher'],
+    transform: (tok) => {
+      return { wrong: tok, right: ['a ' + tok, 'an ' + tok, 'the ' + tok], explanation: 'A noun like "' + tok + '" usually needs an article (a, an, or the) in English.' };
+    }
+  },
+  // ── IRREGULAR VERBS ──
+  {
+    id: 'irregular_past',
+    name: 'Irregular past tense → regularized',
+    applies: ['verb_past_simple'],
+    example: ['bought → buyed', 'went → goed', 'thought → thinked'],
+    transform: (tok) => {
+      const irregulars = { went:'goed', bought:'buyed', thought:'thinked', brought:'bringed', caught:'catched', taught:'teached', fought:'fighted', sought:'seeked', came:'comed', ran:'runned', saw:'sawed', ate:'eated', drank:'drinked', spoke:'speaked', wrote:'writed', gave:'gived', took:'taked', made:'maked', knew:'knowed', grew:'growed', drew:'drawed', flew:'flyed', threw:'throwed', blew:'blowed', swam:'swimmed', sang:'singed', rang:'ringed', won:'winned', lost:'losed', left:'leaved', kept:'keeped', slept:'sleeped', felt:'feeled', met:'meeted', sent:'sended', spent:'spended', built:'builded', found:'finded', held:'holded', led:'leaded', read:'readed', said:'sayed', sold:'selled', told:'telled', stood:'standed', understood:'understanded', broke:'breaked', chose:'choosed', drove:'drived', forgave:'forgived', hid:'hided', meant:'meaned', paid:'payed', rose:'rised', sat:'sitted', set:'setted', shot:'shooted', shut:'shutted', spread:'spreaded', struck:'striked', swore:'sweared', tore:'teared', woke:'waked', wore:'weared', won:'winned' };
+      const tl = tok.toLowerCase();
+      if (irregulars[tl]) return { wrong: irregulars[tl], right: [tok], explanation: '"' + irregulars[tl] + '" is not a real word. "' + tok + '" is an irregular past tense — it must be memorized.' };
+      return { wrong: tok, right: [tok], explanation: 'Mark the incorrect regularized form of this irregular verb.' };
+    }
+  },
+  // ── NOUN FORMS ──
+  {
+    id: 'uncountable_plural',
+    name: 'Uncountable noun used as plural',
+    applies: ['noun'],
+    example: ['informations', 'information'],
+    transform: (tok) => {
+      const uncountable = ['information','advice','furniture','equipment','luggage','baggage','knowledge','research','progress','feedback','homework','work','money','news','music','food','water','evidence','traffic','weather','accommodation','permission','experience','education','health','fun','luck'];
+      const base = tok.replace(/s$/, '');
+      if (uncountable.includes(base.toLowerCase())) {
+        return { wrong: tok, right: [base], explanation: '"' + base + '" is an uncountable noun in English — it has no plural form. Use "' + base + '", not "' + tok + '".' };
+      }
+      return { wrong: tok + 's', right: [tok], explanation: '"' + tok + '" may be uncountable. Remove the -s plural ending.' };
+    }
+  },
+  // ── GENERIC FALLBACK ──
+  {
+    id: 'custom',
+    name: 'Custom error (manual)',
+    applies: ['any'],
+    example: ['wrong form', 'correct form'],
+    transform: (tok) => {
+      return { wrong: tok, right: [], explanation: '' };
+    }
+  }
+];
+
+// Which token types each error applies to — used for context-sensitive filtering
+const TOKEN_TYPE_MAP = {
+  // These are rough heuristics; the UI lets teacher override
+  verb_past_cont:  (t) => /^(was|were)\s+\w+ing$/i.test(t),
+  verb_past_simple:(t) => /\w+(ed|t|d)$/i.test(t) && !/^(was|were|had|did)/.test(t),
+  verb_passive:    (t) => /^(was|were|is|are)\s+\w+(ed|en)$/i.test(t),
+  verb_present:    (t) => /^(do|does|don't|doesn't|is|are|has|have|am)$/i.test(t) || /\w+s$/.test(t),
+  adverb_negative: (t) => /^(never|not|n't)$/i.test(t),
+  preposition:     (t) => /^(in|on|at|for|since|by|with|from|to|of|about|after|before|during|until|without)$/i.test(t),
+  article:         (t) => /^(a|an|the)$/i.test(t),
+  noun:            (t) => t.length > 2 && !/^(was|were|is|are|has|have|do|does|did|will|would|could|should|may|might|shall)$/i.test(t),
+  any:             ()  => true
+};
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+
+let S = {
+  cefr: 'B1',
+  vocabs: [],    // { id, l2, l1, def, hint, a, c, sentences: [{text, altOrder, noOrder, distractors:[]}] }
+  repairs: [],   // { id, correct, tokens, errors:[{wrong,right:[],explanation}] }
+  transforms: [] // { id, prompt, broken, answers:[''], explanation, c }
+};
+
+// Holds arrays loaded verbatim from file — passed through unchanged on export
+// Only blanks/order authored via vocab sentences replace these
+let _loaded = {
+  blanks:    null,  // original blanks array or null if none loaded
+  order:     null,  // original order array or null if none loaded
+};
+
+let _popoverTarget = null; // { repairIdx, tokenStr }
+let _jsonVisible   = false;
+let _vocabCounter  = 0;
+let _grammarCounter= 0;
+
+// ══════════════════════════════════════════════
+//  VOCAB
+// ══════════════════════════════════════════════
+
+function addVocab(data) {
+  const idx = S.vocabs.length;
+  const id  = data?.id || ('v' + (++_vocabCounter));
+  S.vocabs.push(data || { id, l2:'', l1:'', def:'', hint:'', sentences:[] });
+  renderVocabCard(idx);
+  document.getElementById('vocab-empty').style.display = 'none';
+  updateCounts();
+  updatePreview();
+}
+
+function renderVocabCard(idx) {
+  const v   = S.vocabs[idx];
+  const el  = document.createElement('div');
+  el.className = 'vocab-card';
+  el.id = 'vcard-' + idx;
+  el.innerHTML = `
+    <div class="vocab-card-header" onclick="toggleVocab(${idx})">
+      <span class="vocab-card-num">${idx+1}</span>
+      <span class="vocab-card-word" id="vcword-${idx}">${v.l2 || '<em style="color:var(--sub);font-weight:400">new word</em>'}</span>
+      <span class="vocab-card-def"  id="vcdef-${idx}">${v.def || ''}</span>
+      <span class="vocab-card-toggle" id="vctog-${idx}">▼</span>
+      <button class="btn btn-danger btn-xs" onclick="removeVocab(event,${idx})">✕</button>
+    </div>
+    <div class="vocab-card-body open" id="vcbody-${idx}">
+      <div class="vocab-fields">
+        <div class="field">
+          <label>L2 Word / Phrase *</label>
+          <input type="text" value="${esc(v.l2)}" placeholder="e.g. stressed out"
+            oninput="updateVocabField(${idx},'l2',this.value)">
+        </div>
+        <div class="field">
+          <label>L1 Translation</label>
+          <input type="text" value="${esc(v.l1)}" placeholder="optional"
+            oninput="updateVocabField(${idx},'l1',this.value)">
+        </div>
+        <div class="field full">
+          <label>Definition * <span class="text-sub">(shown in Rapid Fire, Match Up, Type It)</span></label>
+          <input type="text" value="${esc(v.def)}" placeholder="e.g. feeling very worried and under pressure"
+            oninput="updateVocabField(${idx},'def',this.value)">
+        </div>
+        <div class="field full">
+          <label>Hint <span class="text-sub">(optional — shown on Easy/Medium in Type It)</span></label>
+          <input type="text" value="${esc(v.hint)}" placeholder='e.g. "two words" or "starts with str-"'
+            oninput="updateVocabField(${idx},'hint',this.value)">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-hdr" style="margin-bottom:10px">
+        <div>
+          <strong style="font-size:.82rem">Example Sentences</strong>
+          <span class="text-sub" style="display:block;margin-top:1px">Each sentence → Fill the Blank + Word Order questions automatically</span>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="addSentence(${idx})">+ Sentence</button>
+      </div>
+
+      <div class="sent-list" id="sents-${idx}">
+        ${v.sentences.map((s,si) => sentenceHTML(idx,si,s)).join('')}
+        ${!v.sentences.length ? '<div class="text-sub" style="font-size:.75rem;padding:4px 0">No sentences yet.</div>' : ''}
+      </div>
+    </div>
+  `;
+
+  const list = document.getElementById('vocab-list');
+  // Replace if exists, else append
+  const existing = document.getElementById('vcard-' + idx);
+  if (existing) existing.replaceWith(el);
+  else list.appendChild(el);
+}
+
+function sentenceHTML(vIdx, sIdx, s) {
+  return `
+    <div class="sent-item" id="sent-${vIdx}-${sIdx}">
+      <div class="sent-row">
+        <input class="sent-input" type="text" value="${esc(s.text)}" placeholder="Write a sentence using this word…"
+          oninput="updateSentField(${vIdx},${sIdx},'text',this.value)">
+        <button class="btn btn-danger btn-icon btn-xs" onclick="removeSent(${vIdx},${sIdx})">✕</button>
+      </div>
+      <div class="sent-options">
+        <label class="sent-check">
+          <input type="checkbox" ${s.noOrder?'checked':''} onchange="updateSentField(${vIdx},${sIdx},'noOrder',this.checked)">
+          Exclude from Word Order
+        </label>
+        <label class="sent-check">
+          <input type="checkbox" ${s.altOrder?'checked':''} onchange="toggleAltOrder(${vIdx},${sIdx},this.checked)">
+          Has alternate order
+        </label>
+      </div>
+      <input class="sent-input sent-alt-input ${s.altOrder?'show':''}" id="altinput-${vIdx}-${sIdx}"
+        type="text" value="${esc(s.altOrderText||'')}" placeholder="Alternate valid word order…"
+        oninput="updateSentField(${vIdx},${sIdx},'altOrderText',this.value)">
+
+      <div class="flex gap-6 mt-8" style="align-items:center;flex-wrap:wrap">
+        <span style="font-size:.68rem;color:var(--sub);font-family:var(--ff-mono);letter-spacing:.05em">FIB DISTRACTORS:</span>
+        <div class="distractor-row" id="dist-${vIdx}-${sIdx}">
+          ${(s.distractors||[]).map((d,di) => distractorTag(vIdx,sIdx,di,d)).join('')}
+          <input class="distractor-add-input" placeholder="+ add word"
+            onkeydown="addDistractor(event,${vIdx},${sIdx},this)">
+        </div>
+        <span class="text-sub" style="font-size:.65rem">auto-filled from other vocab if empty</span>
+      </div>
+    </div>
+  `;
+}
+
+function distractorTag(vIdx, sIdx, dIdx, word) {
+  return `<span class="distractor-tag">${esc(word)}<button onclick="removeDistractor(${vIdx},${sIdx},${dIdx})">✕</button></span>`;
+}
+
+function toggleVocab(idx) {
+  const body = document.getElementById('vcbody-' + idx);
+  const tog  = document.getElementById('vctog-'  + idx);
+  const open = body.classList.toggle('open');
+  tog.textContent = open ? '▼' : '▶';
+}
+
+function updateVocabField(idx, field, val) {
+  S.vocabs[idx][field] = val;
+  if (field === 'l2') {
+    document.getElementById('vcword-' + idx).innerHTML = val || '<em style="color:var(--sub);font-weight:400">new word</em>';
+    // Auto-generate unit ID hint
+    const mod = document.getElementById('unit-module').value.trim();
+    const title = document.getElementById('unit-title').value.trim();
+    if (mod && title && !document.getElementById('unit-id').value) {
+      document.getElementById('unit-id').value = mod + '/' + slugify(title);
+    }
+  }
+  if (field === 'def') document.getElementById('vcdef-' + idx).textContent = val;
+  updateCounts();
+  updatePreview();
+}
+
+function removeVocab(e, idx) {
+  e.stopPropagation();
+  S.vocabs.splice(idx, 1);
+  rebuildVocabList();
+}
+
+function rebuildVocabList() {
+  const list  = document.getElementById('vocab-list');
+  const empty = document.getElementById('vocab-empty');
+
+  // Remove all vocab cards (not the empty state element)
+  [...list.children].forEach(child => {
+    if (child.id !== 'vocab-empty') child.remove();
+  });
+
+  empty.style.display = S.vocabs.length ? 'none' : 'block';
+  S.vocabs.forEach((_, i) => renderVocabCard(i));
+  updateCounts();
+  updatePreview();
+}
+
+function addSentence(vIdx) {
+  S.vocabs[vIdx].sentences.push({ text:'', noOrder:false, altOrder:false, altOrderText:'', distractors:[] });
+  const sIdx = S.vocabs[vIdx].sentences.length - 1;
+  const list = document.getElementById('sents-' + vIdx);
+  // Remove "no sentences" placeholder text
+  if (list.querySelector('.text-sub')) list.innerHTML = '';
+  const el = document.createElement('div');
+  el.outerHTML; // placeholder
+  list.insertAdjacentHTML('beforeend', sentenceHTML(vIdx, sIdx, S.vocabs[vIdx].sentences[sIdx]));
+  updateCounts();
+  updatePreview();
+}
+
+function removeSent(vIdx, sIdx) {
+  S.vocabs[vIdx].sentences.splice(sIdx, 1);
+  renderVocabCard(vIdx);
+  updateCounts();
+  updatePreview();
+}
+
+function updateSentField(vIdx, sIdx, field, val) {
+  S.vocabs[vIdx].sentences[sIdx][field] = val;
+  updateCounts();
+  updatePreview();
+}
+
+function toggleAltOrder(vIdx, sIdx, checked) {
+  S.vocabs[vIdx].sentences[sIdx].altOrder = checked;
+  const inp = document.getElementById('altinput-' + vIdx + '-' + sIdx);
+  inp.classList.toggle('show', checked);
+  updatePreview();
+}
+
+function addDistractor(e, vIdx, sIdx, inp) {
+  if (e.key !== 'Enter') return;
+  const val = inp.value.trim();
+  if (!val) return;
+  S.vocabs[vIdx].sentences[sIdx].distractors.push(val);
+  inp.value = '';
+  const container = document.getElementById('dist-' + vIdx + '-' + sIdx);
+  const dIdx = S.vocabs[vIdx].sentences[sIdx].distractors.length - 1;
+  container.insertAdjacentHTML('afterbegin', distractorTag(vIdx, sIdx, dIdx, val));
+  updatePreview();
+}
+
+function removeDistractor(vIdx, sIdx, dIdx) {
+  S.vocabs[vIdx].sentences[sIdx].distractors.splice(dIdx, 1);
+  const container = document.getElementById('dist-' + vIdx + '-' + sIdx);
+  container.querySelectorAll('.distractor-tag')[dIdx]?.remove();
+  updatePreview();
+}
+
+// ══════════════════════════════════════════════
+//  REPAIR
+// ══════════════════════════════════════════════
+
+function addRepair(data) {
+  const idx = S.repairs.length;
+  S.repairs.push(data || { id: 'r' + (++_grammarCounter), correct:'', tokens:[], errors:[] });
+  renderRepairCard(idx);
+  document.getElementById('grammar-empty').style.display = 'none';
+  updateCounts();
+  updatePreview();
+}
+
+function renderRepairCard(idx) {
+  const r  = S.repairs[idx];
+  const el = document.createElement('div');
+  el.className = 'grammar-card';
+  el.id = 'rcard-' + idx;
+
+  const tokHTML = r.correct
+    ? tokenizeForDisplay(r.correct, idx)
+    : '<span style="color:var(--sub);font-size:.82rem">Type the correct sentence above, then click words to add errors.</span>';
+
+  const brokenText = computeBroken(r);
+
+  el.innerHTML = `
+    <div class="grammar-card-header">
+      <span class="grammar-type-badge badge-repair">Repair</span>
+      <span style="font-size:.78rem;color:var(--sub);flex:1" id="rcard-preview-${idx}">${r.correct ? esc(r.correct.slice(0,60)) + (r.correct.length>60?'…':'') : 'new repair item'}</span>
+      <button class="btn btn-danger btn-xs" onclick="removeRepair(${idx})">✕</button>
+    </div>
+    <div class="grammar-card-body">
+
+      <div class="correct-sent-wrap">
+        <div class="correct-sent-label">Correct sentence *</div>
+        <textarea class="sent-input" rows="2" placeholder="Type the grammatically correct sentence…"
+          style="margin-bottom:8px;width:100%;resize:vertical;min-height:56px"
+          oninput="updateCorrectSent(${idx}, this.value)">${esc(r.correct)}</textarea>
+        <div class="correct-sent-label">Click words to apply errors ↓</div>
+        <div class="correct-sent-display" id="rdisplay-${idx}">${tokHTML}</div>
+      </div>
+
+      <div class="errors-list" id="rerrors-${idx}">
+        ${r.errors.map((err, ei) => errorRowHTML(idx, ei, err)).join('')}
+      </div>
+
+      <div class="broken-preview ${brokenText ? 'show' : ''}" id="rbroken-${idx}">
+        <div class="broken-preview-label">Generated broken sentence</div>
+        <div class="broken-preview-text">${brokenText || ''}</div>
+      </div>
+
+      <div class="accepted-preview" id="raccepted-${idx}">
+        <div class="accepted-preview-label">✓ All accepted answers (auto-generated from corrections)</div>
+        <div class="accepted-list"></div>
+        <div class="accepted-overflow" style="display:none"></div>
+        <div class="accepted-warning">⚠ Some permutations are identical — check for redundant corrections.</div>
+      </div>
+
+    </div>
+  `;
+
+  const list = document.getElementById('grammar-list');
+  const existing = document.getElementById('rcard-' + idx);
+  if (existing) existing.replaceWith(el);
+  else list.appendChild(el);
+}
+
+function tokenizeForDisplay(sentence, repairIdx) {
+  const tokens = sentence.match(/\S+/g) || [];
+  return tokens.map(tok => {
+    const r = S.repairs[repairIdx];
+    // Highlight words that already have errors assigned (correct form with wrong forms entered)
+    const hasError = r.errors.some(e => {
+      const rightForm  = e.right?.[0] || '';
+      const wrongForms = Array.isArray(e.wrong) ? e.wrong : (e.wrong ? [e.wrong] : []);
+      return rightForm === tok && wrongForms.length > 0;
+    });
+    return `<span class="token ${hasError?'errored':''}" 
+      onclick="onTokenClick(event, ${repairIdx}, '${esc(tok)}')" 
+      data-tok="${esc(tok)}">${esc(tok)}</span> `;
+  }).join('');
+}
+
+function onTokenClick(e, repairIdx, tok) {
+  e.stopPropagation();
+  _popoverTarget = { repairIdx, tok };
+
+  // Determine which errors apply
+  const applicable = ERROR_LIBRARY.filter(err =>
+    err.applies.some(type => type === 'any' || (TOKEN_TYPE_MAP[type] && TOKEN_TYPE_MAP[type](tok)))
+  );
+
+  const pop = document.getElementById('error-popover');
+  document.getElementById('popover-token-label').textContent = '"' + tok + '" is correct — add common wrong forms';
+  const opts = document.getElementById('popover-options');
+  opts.innerHTML = applicable.map((err, i) =>
+    `<div class="error-option" onclick="applyError(${i})">
+      <div class="error-option-name">${err.name}</div>
+      <div class="error-option-example">${formatExample(err.example)}</div>
+    </div>`
+  ).join('');
+  pop._applicable = applicable;
+
+  // Position popover near click
+  const rect = e.target.getBoundingClientRect();
+  pop.style.top  = Math.min(rect.bottom + 6, window.innerHeight - 320) + 'px';
+  pop.style.left = Math.min(rect.left, window.innerWidth - 360) + 'px';
+  pop.classList.add('show');
+}
+
+function formatExample(ex) {
+  // ex[0] = correct form, ex[1] = common wrong form
+  return `<b>${ex[0]}</b> → common error: <s>${ex[1]}</s>`;
+}
+
+function applyError(applicableIdx) {
+  const pop = document.getElementById('error-popover');
+  const err = pop._applicable[applicableIdx];
+  const { repairIdx, tok } = _popoverTarget;
+  pop.classList.remove('show');
+
+  const result = err.transform(tok);
+  if (!result) { toast('Could not auto-generate — use Custom and fill manually'); return; }
+
+  // tok = correct form (what was clicked); result.wrong = the auto-generated error form
+  const newError = {
+    right: [tok],
+    wrong: result.wrong ? [result.wrong] : [],
+    explanation: result.explanation || '',
+    _errLibId: err.id
+  };
+
+  S.repairs[repairIdx].errors.push(newError);
+  renderRepairCard(repairIdx);
+  updatePermutationsPreview(repairIdx);
+  updatePreview();
+}
+
+function errorRowHTML(repairIdx, errIdx, err) {
+  // err.right[0] = the correct word (what was clicked)
+  // err.wrong = array of incorrect forms students commonly write
+  const wrongForms = Array.isArray(err.wrong) ? err.wrong : (err.wrong ? [err.wrong] : []);
+  const correctForm = err.right?.[0] || '';
+
+  const wrongTagsHTML = wrongForms.map((w, wi) =>
+    `<span class="error-wrong" style="cursor:pointer;user-select:none" title="click to remove"
+      onclick="removeWrongForm(${repairIdx},${errIdx},${wi})">${esc(w)} ✕</span>`
+  ).join('');
+
+  const warnShow = wrongForms.length > 5 ? 'show' : '';
+
+  return `
+    <div class="error-row" id="errrow-${repairIdx}-${errIdx}">
+      <div class="error-row-top">
+        <span class="error-right-tag" style="font-size:.82rem;padding:3px 10px">✓ ${esc(correctForm)}</span>
+        <span class="error-arrow">←</span>
+        <span style="font-size:.72rem;color:var(--sub);font-family:var(--ff-mono)">common errors:</span>
+        <div class="error-rights" id="wrongs-${repairIdx}-${errIdx}">${wrongTagsHTML}</div>
+        <button class="btn btn-danger btn-xs ml-auto" onclick="removeError(${repairIdx},${errIdx})">✕</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;margin-top:6px">
+        <span style="font-size:.7rem;color:var(--sub);font-family:var(--ff-mono)">Add wrong form:</span>
+        <input class="error-right-add" placeholder='e.g. "was run", "erupt"  — press Enter'
+          style="width:220px"
+          onkeydown="addWrongForm(event,${repairIdx},${errIdx},this)">
+      </div>
+      <textarea class="error-explanation" rows="2" placeholder="Explanation shown to student when wrong…"
+        oninput="updateErrorExplanation(${repairIdx},${errIdx},this.value)">${esc(err.explanation||'')}</textarea>
+      <div class="error-warning ${warnShow}">⚠ More than 5 wrong forms — consider splitting into separate errors.</div>
+    </div>
+  `;
+}
+
+function updateCorrectSent(idx, val) {
+  S.repairs[idx].correct = val;
+  S.repairs[idx].errors  = []; // reset errors when sentence changes
+  document.getElementById('rdisplay-' + idx).innerHTML = tokenizeForDisplay(val, idx);
+  document.getElementById('rcard-preview-' + idx).textContent = val.slice(0,60) + (val.length>60?'…':'');
+  document.getElementById('rerrors-' + idx).innerHTML = '';
+  updateBrokenPreview(idx);
+  updatePreview();
+}
+
+function removeError(repairIdx, errIdx) {
+  S.repairs[repairIdx].errors.splice(errIdx, 1);
+  renderRepairCard(repairIdx);
+  updatePreview();
+}
+
+function removeRepair(idx) {
+  S.repairs.splice(idx, 1);
+  rebuildGrammarList();
+}
+
+function addWrongForm(e, repairIdx, errIdx, inp) {
+  if (e.key !== 'Enter') return;
+  const val = inp.value.trim();
+  if (!val) return;
+  const err = S.repairs[repairIdx].errors[errIdx];
+  if (!Array.isArray(err.wrong)) err.wrong = err.wrong ? [err.wrong] : [];
+  err.wrong.push(val);
+  inp.value = '';
+  const container = document.getElementById('wrongs-' + repairIdx + '-' + errIdx);
+  const wi = err.wrong.length - 1;
+  container.insertAdjacentHTML('beforeend',
+    `<span class="error-wrong" style="cursor:pointer;user-select:none" title="click to remove"
+      onclick="removeWrongForm(${repairIdx},${errIdx},${wi})">${esc(val)} ✕</span>`
+  );
+  const warn = document.querySelector(`#errrow-${repairIdx}-${errIdx} .error-warning`);
+  if (warn) warn.classList.toggle('show', err.wrong.length > 5);
+  updateBrokenPreview(repairIdx);
+  updatePreview();
+}
+
+function removeWrongForm(repairIdx, errIdx, wi) {
+  const err = S.repairs[repairIdx].errors[errIdx];
+  if (!Array.isArray(err.wrong)) return;
+  err.wrong.splice(wi, 1);
+  renderRepairCard(repairIdx);
+  updateBrokenPreview(repairIdx);
+  updatePreview();
+}
+
+// Backwards-compat aliases
+function addRight(e, ri, ei, inp) { addWrongForm(e, ri, ei, inp); }
+function removeRight(ri, ei, wi)   { removeWrongForm(ri, ei, wi); }
+
+function updateErrorExplanation(repairIdx, errIdx, val) {
+  S.repairs[repairIdx].errors[errIdx].explanation = val;
+  updatePreview();
+}
+
+function computeBroken(r) {
+  // Generate broken sentence: replace correct form with first wrong form for each error
+  if (!r.correct || !r.errors.length) return '';
+  let s = r.correct;
+  for (const err of r.errors) {
+    const correctForm = err.right?.[0];
+    const wrongForms  = Array.isArray(err.wrong) ? err.wrong : (err.wrong ? [err.wrong] : []);
+    if (correctForm && wrongForms.length) {
+      s = s.replace(correctForm, wrongForms[0]);
+    }
+  }
+  return s;
+}
+
+// Generate all permutations of broken sentences from wrong forms
+// Start from correct sentence, substitute each correct form with each of its wrong forms
+function computePermutations(r) {
+  if (!r.correct || !r.errors.length) return [];
+
+  const corrections = r.errors.filter(e => {
+    const wrongForms = Array.isArray(e.wrong) ? e.wrong : (e.wrong ? [e.wrong] : []);
+    return e.right?.[0] && wrongForms.length;
+  });
+  if (!corrections.length) return [];
+
+  let combos = [r.correct];
+  for (const err of corrections) {
+    const correctForm = err.right[0];
+    const wrongForms  = Array.isArray(err.wrong) ? err.wrong : [err.wrong];
+    const next = [];
+    for (const sentence of combos) {
+      for (const wrong of wrongForms) {
+        const broken = sentence.replace(new RegExp(escapeRegex(correctForm), 'g'), wrong);
+        if (!next.includes(broken)) next.push(broken);
+      }
+    }
+    combos = next;
+  }
+
+  return combos.filter(s => s !== r.correct);
+}
+
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function updateBrokenPreview(idx) {
+  const r      = S.repairs[idx];
+  const broken = computeBroken(r);
+  const preview = document.getElementById('rbroken-' + idx);
+  if (!preview) return;
+  if (broken && broken !== r.correct) {
+    preview.classList.add('show');
+    preview.querySelector('.broken-preview-text').textContent = broken;
+  } else {
+    preview.classList.remove('show');
+  }
+  updatePermutationsPreview(idx);
+}
+
+function updatePermutationsPreview(idx) {
+  const r   = S.repairs[idx];
+  const box = document.getElementById('raccepted-' + idx);
+  if (!box) return;
+
+  const perms = computePermutations(r);
+  if (!perms.length) { box.classList.remove('show'); return; }
+
+  box.classList.add('show');
+  const list = box.querySelector('.accepted-list');
+  const warn = box.querySelector('.accepted-warning');
+  const overflow = box.querySelector('.accepted-overflow');
+
+  const MAX_SHOW = 8;
+  const shown = perms.slice(0, MAX_SHOW);
+
+  list.innerHTML = shown.map(s => {
+    // Highlight the changed words
+    let highlighted = esc(s);
+    r.errors.forEach(err => {
+      err.right.forEach(right => {
+        highlighted = highlighted.replace(
+          new RegExp(escapeRegex(esc(right)), 'g'),
+          `<span class="changed">${esc(right)}</span>`
+        );
+      });
+    });
+    return `<div class="accepted-sentence">${highlighted}</div>`;
+  }).join('');
+
+  if (perms.length > MAX_SHOW) {
+    overflow.textContent = `+ ${perms.length - MAX_SHOW} more combinations`;
+    overflow.style.display = 'block';
+  } else {
+    overflow.style.display = 'none';
+  }
+
+  // Warn if any permutation looks identical to another (sign of redundant right values)
+  const unique = new Set(perms);
+  warn.classList.toggle('show', unique.size < perms.length);
+}
+
+// ══════════════════════════════════════════════
+//  TRANSFORM
+// ══════════════════════════════════════════════
+
+function addTransform(data) {
+  const idx = S.transforms.length;
+  S.transforms.push(data || { id: 't' + (++_grammarCounter), prompt:'', broken:'', answers:[''], explanation:'' });
+  renderTransformCard(idx);
+  document.getElementById('grammar-empty').style.display = 'none';
+  updateCounts();
+  updatePreview();
+}
+
+function renderTransformCard(idx) {
+  const t  = S.transforms[idx];
+  const el = document.createElement('div');
+  el.className = 'grammar-card';
+  el.id = 'tcard-' + idx;
+
+  const answersHTML = t.answers.map((a, ai) =>
+    `<div class="answer-row" id="arow-${idx}-${ai}">
+      <input class="answer-input" type="text" value="${esc(a)}" placeholder="Model answer ${ai+1}…"
+        oninput="updateAnswer(${idx},${ai},this.value)">
+      ${ai > 0 ? `<button class="btn btn-danger btn-icon btn-xs" onclick="removeAnswer(${idx},${ai})">✕</button>` : ''}
+    </div>`
+  ).join('');
+
+  el.innerHTML = `
+    <div class="grammar-card-header">
+      <span class="grammar-type-badge badge-transform">Transform</span>
+      <span style="font-size:.78rem;color:var(--sub);flex:1" id="tcard-preview-${idx}">${t.prompt ? esc(t.prompt.slice(0,60)) : 'new transform item'}</span>
+      <button class="btn btn-danger btn-xs" onclick="removeTransform(${idx})">✕</button>
+    </div>
+    <div class="grammar-card-body">
+      <div class="transform-fields">
+        <div class="field">
+          <label>Prompt shown to student *</label>
+          <input type="text" value="${esc(t.prompt)}" 
+            placeholder='e.g. "Rewrite in the passive: Alexander Fleming discovered penicillin."'
+            oninput="updateTransformField(${idx},'prompt',this.value)">
+        </div>
+        <div class="field">
+          <label>Source sentence <span class="text-sub">(the sentence to transform — used for "closest answer" fallback)</span></label>
+          <input type="text" value="${esc(t.broken)}" placeholder="e.g. Alexander Fleming discovered penicillin."
+            oninput="updateTransformField(${idx},'broken',this.value)">
+        </div>
+        <div class="field">
+          <label>Model answers * <span class="text-sub">(up to 5 — press Enter to add)</span></label>
+          <div class="answers-list" id="answers-${idx}">${answersHTML}</div>
+          ${t.answers.length < 5 ? `<button class="btn btn-outline btn-sm mt-8" onclick="addAnswer(${idx})">+ Add answer</button>` : ''}
+          ${t.answers.length > 5 ? '<div class="warn-text mt-8">⚠ Maximum 5 model answers — consider rewriting the prompt to narrow the answer space.</div>' : ''}
+        </div>
+        <div class="field">
+          <label>Explanation <span class="text-sub">(shown when student is wrong)</span></label>
+          <textarea rows="2" placeholder="e.g. Passive: object + was/were + past participle + by + subject."
+            oninput="updateTransformField(${idx},'explanation',this.value)">${esc(t.explanation)}</textarea>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const list = document.getElementById('grammar-list');
+  const existing = document.getElementById('tcard-' + idx);
+  if (existing) existing.replaceWith(el);
+  else list.appendChild(el);
+}
+
+function updateTransformField(idx, field, val) {
+  S.transforms[idx][field] = val;
+  if (field === 'prompt') {
+    document.getElementById('tcard-preview-' + idx).textContent = val.slice(0,60) + (val.length>60?'…':'');
+  }
+  updatePreview();
+}
+
+function updateAnswer(idx, ai, val) {
+  S.transforms[idx].answers[ai] = val;
+  updatePreview();
+}
+
+function addAnswer(idx) {
+  if (S.transforms[idx].answers.length >= 5) return;
+  S.transforms[idx].answers.push('');
+  renderTransformCard(idx);
+  updatePreview();
+}
+
+function removeAnswer(idx, ai) {
+  S.transforms[idx].answers.splice(ai, 1);
+  renderTransformCard(idx);
+  updatePreview();
+}
+
+function removeTransform(idx) {
+  S.transforms.splice(idx, 1);
+  rebuildGrammarList();
+}
+
+function rebuildGrammarList() {
+  const list = document.getElementById('grammar-list');
+  list.innerHTML = '';
+  const empty = document.createElement('div');
+  empty.className = 'empty-state';
+  empty.id = 'grammar-empty';
+  empty.innerHTML = '<div class="icon">⚙️</div><p>No grammar items yet.</p>';
+  list.appendChild(empty);
+  empty.style.display = (S.repairs.length + S.transforms.length) ? 'none' : 'block';
+  // Re-render repairs then transforms (they share the list)
+  S.repairs.forEach((_, i)    => renderRepairCard(i));
+  S.repairs.forEach((_, i)    => updatePermutationsPreview(i));
+  S.transforms.forEach((_, i) => renderTransformCard(i));
+  updateCounts();
+  updatePreview();
+}
+
+// ══════════════════════════════════════════════
+//  JSON GENERATION
+// ══════════════════════════════════════════════
+
+function buildUnitJSON() {
+  const moduleId  = g('unit-module');
+  const unitId    = g('unit-id') || (moduleId + '/' + slugify(g('unit-title')));
+  const tags      = g('unit-tags').split(',').map(s => s.trim()).filter(Boolean);
+  const defaultCat = tags[0] ? slugify(tags[0]) : 'general';
+
+  // Parse categories textarea
+  const catMap = {};
+  g('unit-cats').split('\n').forEach(line => {
+    const m = line.match(/^(\S+)\s*:\s*(.+)$/);
+    if (m) catMap[m[1].trim()] = m[2].trim();
+  });
+
+  // ── VOCAB — preserve all fields ──
+  let vIdx = 0;
+  const vocab = S.vocabs.filter(v => v.l2 && v.def).map(v => {
+    vIdx++;
+    return {
+      id:   v.id || unitId + '-v' + String(vIdx).padStart(2,'0'),
+      l2:   v.l2,
+      l1:   v.l1   || undefined,
+      def:  v.def,
+      a:    v.a?.length ? v.a : [v.l2],
+      hint: v.hint  || undefined,
+      c:    v.c?.length ? v.c : [defaultCat]
+    };
+  });
+
+  // ── BLANKS — pass through loaded array, append any new ones from vocab sentences ──
+  const loadedBlanks = _loaded.blanks ? [..._loaded.blanks] : [];
+  const loadedBlankTexts = new Set(loadedBlanks.map(b => b.l2 || ''));
+
+  const newBlanks = [];
+  S.vocabs.filter(v => v.l2 && v.def).forEach(v => {
+    const catForWord = v.c?.length ? v.c : [defaultCat];
+    v.sentences.filter(s => s.text && s.text.includes(v.l2) && !loadedBlankTexts.has(s.text)).forEach(s => {
+      const parts = splitOnWord(s.text, v.l2);
+      if (parts.length !== 3) return;
+      newBlanks.push({
+        id: unitId + '-b' + String(loadedBlanks.length + newBlanks.length + 1).padStart(2,'0'),
+        s:  parts,
+        a:  [v.l2],
+        d:  s.distractors?.length ? s.distractors : undefined,
+        c:  catForWord,
+        l2: s.text
+      });
+    });
+  });
+
+  const blanks = [...loadedBlanks, ...newBlanks];
+
+  // ── ORDER — pass through loaded array, append any new ones from vocab sentences ──
+  const loadedOrder = _loaded.order ? [..._loaded.order] : [];
+  const loadedOrderTexts = new Set(loadedOrder.map(o => o.l2 || ''));
+
+  const newOrder = [];
+  S.vocabs.filter(v => v.l2).forEach(v => {
+    const catForWord = v.c?.length ? v.c : [defaultCat];
+    v.sentences.filter(s => s.text && !s.noOrder && !loadedOrderTexts.has(s.text)).forEach(s => {
+      const tiles = tokenizeSentence(s.text);
+      if (tiles.length < 3) return;
+      newOrder.push({
+        id:   unitId + '-o' + String(loadedOrder.length + newOrder.length + 1).padStart(2,'0'),
+        w:    tiles,
+        alts: s.altOrderText ? [tokenizeSentence(s.altOrderText)] : [],
+        d:    [],
+        c:    catForWord,
+        l2:   s.text
+      });
+    });
+  });
+
+  const order = [...loadedOrder, ...newOrder];
+
+  // ── REPAIR — preserve c array ──
+  let rIdx = 0;
+  const repair = S.repairs.filter(r => r.correct && r.errors.length).map(r => {
+    rIdx++;
+    return {
+      id:     r.id || unitId + '-r' + String(rIdx).padStart(2,'0'),
+      broken: r.broken || computeBroken(r),
+      errors: r.errors.filter(e => e.right?.length && (Array.isArray(e.wrong) ? e.wrong.length : e.wrong)).map(e => {
+        const wrongArr = Array.isArray(e.wrong) ? e.wrong : (e.wrong ? [e.wrong] : []);
+        return {
+          wrong:       wrongArr[0],           // primary wrong form (string for engine)
+          wrong_alts:  wrongArr.slice(1).length ? wrongArr.slice(1) : undefined, // extra wrong forms
+          right:       e.right,               // correct form(s)
+          explanation: e.explanation || undefined
+        };
+      }),
+      a: [r.correct],
+      c: r.c?.length ? r.c : [defaultCat]
+    };
+  });
+
+  // ── FREEWRITE — preserve c array ──
+  let fIdx = 0;
+  const freewrite = S.transforms.filter(t => t.prompt && t.answers.filter(Boolean).length).map(t => {
+    fIdx++;
+    return {
+      id:          t.id || unitId + '-f' + String(fIdx).padStart(2,'0'),
+      subtype:     'transform',
+      prompt:      t.prompt,
+      broken:      t.broken || undefined,
+      a:           t.answers.filter(Boolean),
+      alts:        [],
+      explanation: t.explanation || undefined,
+      c:           t.c?.length ? t.c : [defaultCat]
+    };
+  });
+
+  return {
+    id:         unitId,
+    title:      g('unit-title'),
+    module:     moduleId,
+    cefr:       S.cefr,
+    l1:         g('unit-l1'),
+    l2:         g('unit-l2'),
+    tags,
+    categories: Object.keys(catMap).length ? catMap : undefined,
+    vocab:      vocab.length     ? vocab     : undefined,
+    blanks:     blanks.length    ? blanks    : undefined,
+    order:      order.length     ? order     : undefined,
+    repair:     repair.length    ? repair    : undefined,
+    freewrite:  freewrite.length ? freewrite : undefined
+  };
+}
+
+// Split "She was stressed out after work" on "stressed out" → ["She was ", "___", " after work"]
+function splitOnWord(sentence, word) {
+  const idx = sentence.indexOf(word);
+  if (idx === -1) return [sentence]; // word not found — caller filters
+  return [sentence.slice(0, idx), '___', sentence.slice(idx + word.length)];
+}
+
+// Tokenize for word order, attaching punctuation to previous token
+function tokenizeSentence(s) {
+  const words = s.trim().split(/\s+/);
+  if (!words.length) return [];
+  // Attach terminal punctuation to last word
+  const last = words[words.length - 1];
+  if (/[.!?]$/.test(last)) {
+    // Already attached — fine
+  }
+  return words;
+}
+
+// ══════════════════════════════════════════════
+//  PREVIEW / COUNTS
+// ══════════════════════════════════════════════
+
+function updatePreview() {
+  updateCounts();
+  if (!_jsonVisible) return;
+  const unit = buildUnitJSON();
+  document.getElementById('json-output').textContent = JSON.stringify(unit, null, 2);
+}
+
+function updateCounts() {
+  const sentCount = S.vocabs.reduce((n,v) => n + v.sentences.filter(s=>s.text).length, 0);
+  const blanksCount = S.vocabs.reduce((n,v) => n + v.sentences.filter(s=>s.text && s.text.includes(v.l2)).length, 0);
+  const orderCount  = S.vocabs.reduce((n,v) => n + v.sentences.filter(s=>s.text && !s.noOrder).length, 0);
+
+  g2('count-vocab',  S.vocabs.filter(v=>v.l2&&v.def).length);
+  g2('count-blanks', blanksCount);
+  g2('count-order',  orderCount);
+  g2('count-repair', S.repairs.filter(r=>r.correct&&r.errors.length).length);
+  g2('count-fw',     S.transforms.filter(t=>t.prompt&&t.answers.filter(Boolean).length).length);
+
+  g2('tbadge-vocab',   S.vocabs.filter(v=>v.l2).length);
+  g2('tbadge-grammar', S.repairs.length + S.transforms.length);
+}
+
+// ══════════════════════════════════════════════
+//  LOAD / EXPORT
+// ══════════════════════════════════════════════
+
+function validateAndExport() {
+  const unit = buildUnitJSON();
+  const errs = [];
+  if (!unit.title)  errs.push('Unit title is required');
+  if (!unit.module) errs.push('Module ID is required');
+  if (!unit.id)     errs.push('Unit ID is required');
+  if (!unit.vocab?.length && !unit.repair?.length && !unit.freewrite?.length)
+    errs.push('Add at least one vocab word or grammar item');
+
+  if (errs.length) {
+    toast('⚠ ' + errs[0]);
+    return;
+  }
+
+  // Clean undefined fields recursively
+  const clean = JSON.parse(JSON.stringify(unit, (k, v) => v === undefined ? undefined : v));
+  const blob = new Blob([JSON.stringify(clean, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (unit.id.split('/').pop() || 'unit') + '.json';
+  a.click();
+  toast('✓ Exported ' + a.download);
+}
+
+function loadJSON() {
+  document.getElementById('load-modal').classList.add('show');
+}
+
+function handleLoad(inp) {
+  const file = inp.files[0];
+  if (!file) return;
+  closeModal('load-modal');
+  const reader = new FileReader();
+  reader.onload = e => {
+    let unit;
+    try {
+      unit = JSON.parse(e.target.result);
+    } catch(err) {
+      console.error('JSON parse error:', err);
+      toast('✗ Invalid JSON — ' + err.message);
+      return;
+    }
+    try {
+      populateFromJSON(unit);
+      toast('✓ Loaded ' + file.name);
+    } catch(err) {
+      console.error('populateFromJSON error:', err);
+      toast('✗ Load failed — check console for details');
+    }
+  };
+  reader.onerror = () => toast('✗ Could not read file');
+  reader.readAsText(file);
+  inp.value = '';
+}
+
+function populateFromJSON(unit) {
+  S = { cefr: unit.cefr || 'B1', vocabs:[], repairs:[], transforms:[] };
+  _vocabCounter = 0; _grammarCounter = 0;
+
+  // Store blanks and order verbatim — passed through unchanged on export
+  _loaded.blanks = unit.blanks || null;
+  _loaded.order  = unit.order  || null;
+
+  // Metadata
+  si('unit-title',  unit.title  || '');
+  si('unit-module', unit.module || '');
+  si('unit-id',     unit.id     || '');
+  si('unit-l1',     unit.l1     || 'vi');
+  si('unit-l2',     unit.l2     || 'en');
+  si('unit-tags',   (unit.tags  || []).join(', '));
+  si('unit-cats',   unit.categories
+    ? Object.entries(unit.categories).map(([k,v]) => k + ': ' + v).join('\n')
+    : '');
+  setCEFR(unit.cefr || 'B1');
+
+  // Load vocab directly — no sentence reconstruction
+  S.vocabs = (unit.vocab || []).map(v => ({
+    id:        v.id,
+    l2:        v.l2,
+    l1:        v.l1   || '',
+    def:       v.def  || '',
+    hint:      v.hint || '',
+    a:         v.a    || [v.l2],
+    c:         v.c    || [],
+    sentences: []   // sentences authored in builder only; loaded blanks/order are separate
+  }));
+
+  // Load repairs — store original broken field verbatim
+  S.repairs = (unit.repair || []).map(r => ({
+    id:      r.id,
+    correct: r.a?.[0] || '',
+    broken:  r.broken || '',
+    tokens:  [],
+    errors:  (r.errors || []).map(e => ({
+      // Normalise wrong to array (old format was string, new format is array)
+      wrong:       Array.isArray(e.wrong) ? e.wrong : (e.wrong ? [e.wrong] : []),
+      right:       Array.isArray(e.right) ? e.right : (e.right ? [e.right] : []),
+      explanation: e.explanation || ''
+    })),
+    c: r.c || []
+  }));
+
+  // Load transforms
+  S.transforms = (unit.freewrite || []).map(fw => ({
+    id:          fw.id,
+    prompt:      fw.prompt      || '',
+    broken:      fw.broken      || '',
+    answers:     fw.a?.length   ? fw.a : [''],
+    explanation: fw.explanation || '',
+    c:           fw.c           || []
+  }));
+
+  rebuildVocabList();
+  rebuildGrammarList();
+  updatePreview();
+}
+
+function newUnit() {
+  if (!confirm('Start a new unit? Unsaved changes will be lost.')) return;
+  S = { cefr:'B1', vocabs:[], repairs:[], transforms:[] };
+  _loaded = { blanks: null, order: null };
+  _vocabCounter = 0; _grammarCounter = 0;
+  ['unit-title','unit-module','unit-id','unit-tags','unit-cats'].forEach(id => si(id,''));
+  setCEFR('B1');
+  rebuildVocabList();
+  rebuildGrammarList();
+  updatePreview();
+}
+
+// ══════════════════════════════════════════════
+//  UI HELPERS
+// ══════════════════════════════════════════════
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('tc-' + name).classList.add('active');
+}
+
+function setCEFR(level) {
+  S.cefr = level;
+  document.querySelectorAll('.cefr-pill').forEach(p => {
+    p.classList.toggle('on', p.textContent === level);
+  });
+  updatePreview();
+}
+
+function toggleJSON() {
+  _jsonVisible = !_jsonVisible;
+  document.getElementById('json-panel').classList.toggle('hidden', !_jsonVisible);
+  document.getElementById('btn-toggle-json').style.color = _jsonVisible ? 'var(--cyan, #00f5ff)' : '';
+  if (_jsonVisible) updatePreview();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+function toast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2600);
+}
+
+function g(id)        { return document.getElementById(id)?.value || ''; }
+function g2(id, val)  { const el = document.getElementById(id); if(el) el.textContent = val; }
+function si(id, val)  { const el = document.getElementById(id); if(el) el.value = val; }
+function esc(s)       { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+function slugify(s)   { return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+
+// Close popover on outside click
+document.addEventListener('click', (e) => {
+  const pop = document.getElementById('error-popover');
+  if (!pop.contains(e.target)) pop.classList.remove('show');
+});
+
+// Auto-generate unit ID from title + module
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('unit-title').addEventListener('input', () => {
+    const mod   = g('unit-module');
+    const title = g('unit-title');
+    if (mod && title) {
+      document.getElementById('unit-id').value = mod + '/' + slugify(title);
+      updatePreview();
+    }
+  });
+  document.getElementById('unit-module').addEventListener('input', () => {
+    const mod   = g('unit-module');
+    const title = g('unit-title');
+    if (mod && title) {
+      document.getElementById('unit-id').value = mod + '/' + slugify(title);
+      updatePreview();
+    }
+  });
+  updateCounts();
+});
+</script>
+</body>
+</html>
